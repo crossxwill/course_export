@@ -53,12 +53,12 @@
 <div class='question'>
 <p class='qtype'>Type: ordering_question</p>
 <p class='prompt'>6. <p>AutoGluon-Tabular creates out-of-fold predictions by employing a repeated k‑fold bagging process that proceeds through the following steps.</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q6'> <p>Out‑of‑Fold Predictions: Each trained model then produces predictions on the held‑out fold, generating out‑of‑fold (OOF) predictions.</p></li>
-<li><input type='radio' name='q6'> <p>Multiple Rounds: The entire k‑fold process is repeated n times with different random splits, so that every example receives multiple OOF predictions.</p></li>
-<li><input type='radio' name='q6'> <p>Model Training per Fold: For each fold, a copy of each base learner is trained on the remaining k‑1 folds.</p></li>
-<li><input type='radio' name='q6'> <p>Averaging: The OOF predictions for each base learner are averaged across the n rounds to reduce variance and overfitting.</p></li>
-<li><input type='radio' name='q6'> <p>Data Splitting: The training data is randomly partitioned into k disjoint folds.</p></li>
+<ul class='choices sortable'>
+<li class='choice'><p>Out‑of‑Fold Predictions: Each trained model then produces predictions on the held‑out fold, generating out‑of‑fold (OOF) predictions.</p></li>
+<li class='choice'><p>Multiple Rounds: The entire k‑fold process is repeated n times with different random splits, so that every example receives multiple OOF predictions.</p></li>
+<li class='choice'><p>Model Training per Fold: For each fold, a copy of each base learner is trained on the remaining k‑1 folds.</p></li>
+<li class='choice'><p>Averaging: The OOF predictions for each base learner are averaged across the n rounds to reduce variance and overfitting.</p></li>
+<li class='choice'><p>Data Splitting: The training data is randomly partitioned into k disjoint folds.</p></li>
 </ul>
 </div>
 <div class='question'>

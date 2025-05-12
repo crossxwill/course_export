@@ -36,6 +36,18 @@ def extract_quiz(qti_path):
     root = tree.getroot()
     # QTI namespace for questestinterop
     qti_ns = {'qti': root.tag.split('}')[0].strip('{')}
+
+    # Helper function to get content from mattext elements, preserving HTML
+    def get_mattext_content_for_extract(mattext_element_node):
+        if mattext_element_node is None:
+            return ""
+        # Reconstruct inner content, including text and child elements as HTML strings
+        content = (mattext_element_node.text or "")
+        for child_node in mattext_element_node:
+            # Use method='html' for ET.tostring to handle potentially non-XML-compliant HTML (e.g., <br> without closing)
+            content += ET.tostring(child_node, encoding='unicode', method='html')
+        return content.strip()
+
     # parse assessment title
     assessment = root.find('.//qti:assessment', qti_ns)
     title = (assessment.get('title') if assessment is not None else None) or os.path.basename(qti_path)
@@ -51,13 +63,19 @@ def extract_quiz(qti_path):
             if label is not None and label.text == 'question_type' and entry is not None:
                 qtype = entry.text.strip()
         q['type'] = qtype or 'unknown'
-        # capture raw prompt HTML/text for inline blanks
-        prompt_elem = item.find('.//qti:mattext', qti_ns)
-        raw_prompt = prompt_elem.text or ''
-        # store both raw and plain prompt text
-        q['prompt_html'] = raw_prompt
-        q['prompt'] = raw_prompt
-        # handle fill-in blanks or standard choices
+        
+        # Parse question prompt using the helper
+        question_material_elem = item.find('qti:presentation/qti:material', qti_ns)
+        prompt_mattext_elem = None
+        if question_material_elem is not None:
+            prompt_mattext_elem = question_material_elem.find('qti:mattext', qti_ns)
+        
+        raw_prompt_html = get_mattext_content_for_extract(prompt_mattext_elem)
+        q['prompt_html'] = raw_prompt_html
+        # For plain prompt, ideally strip HTML. For now, use the HTML version or a simple text iter.
+        q['prompt'] = "".join(prompt_mattext_elem.itertext()).strip() if prompt_mattext_elem is not None else raw_prompt_html
+
+        # handle fill-in blanks, categorization, ordering, or standard choices
         if qtype and qtype.startswith('fill_in'):
             blanks = []
             # group options for each blank
@@ -72,12 +90,102 @@ def extract_quiz(qti_path):
                         opts.append(mat.text.strip())
                 blanks.append({'ident': lid_id, 'options': opts})
             q['blanks'] = blanks
-        else:
+        elif qtype == 'categorization_question':
+            categories = []
+            items_to_categorize = []
+            presentation_node = item.find('.//qti:presentation', qti_ns)
+            if presentation_node is not None:
+                # Extract categories and items
+                first_response_lid = True # To ensure items are extracted only once
+                for resp_lid in presentation_node.findall('qti:response_lid', qti_ns):
+                    category_material = resp_lid.find('qti:material', qti_ns)
+                    category_name = ''
+                    if category_material is not None:
+                        mattext_node = category_material.find('qti:mattext', qti_ns)
+                        if mattext_node is not None and mattext_node.text:
+                            category_name = mattext_node.text.strip()
+                    categories.append({'ident': resp_lid.get('ident'), 'name': category_name})
+
+                    if first_response_lid:
+                        render_choice_node = resp_lid.find('.//qti:render_choice', qti_ns) # Look deeper if nested
+                        if render_choice_node is not None:
+                            for resp_label in render_choice_node.findall('qti:response_label', qti_ns):
+                                item_text_node = resp_label.find('.//qti:mattext', qti_ns)
+                                item_text = (item_text_node.text.strip() 
+                                             if item_text_node is not None and item_text_node.text 
+                                             else 'Unknown Item')
+                                items_to_categorize.append({'ident': resp_label.get('ident'), 
+                                                            'text': item_text})
+                        first_response_lid = False
+            q['categories'] = categories
+            q['items_to_categorize'] = items_to_categorize
+        elif qtype == 'ordering_question':
             choices = []
+            # Specific path for ordering items: item -> presentation -> response_lid -> render_extension -> ims_render_object -> flow_label -> response_label
+            flow_label_elem = item.find('.//qti:response_lid/qti:render_extension/qti:ims_render_object/qti:flow_label', qti_ns)
+            if flow_label_elem is not None:
+                for label in flow_label_elem.findall('qti:response_label', qti_ns):
+                    mat = label.find('.//qti:mattext', qti_ns) # .// to be safe if material/mattext is nested
+                    choice_html = get_mattext_content_for_extract(mat)
+                    if choice_html: # Ensure we don't add empty choices
+                        choices.append(choice_html)
+            q['choices'] = choices
+        elif qtype == 'matching_question':
+            match_prompts = []
+            match_options = []
+            first_lid = True
+            # Iterate over each response_lid, each representing a term to be matched
+            for lid in item.findall('.//qti:presentation/qti:response_lid', qti_ns):
+                prompt_material_elem = lid.find('qti:material/qti:mattext', qti_ns)
+                if prompt_material_elem is not None:
+                    match_prompts.append({
+                        'id': lid.get('ident'),
+                        'text': get_mattext_content_for_extract(prompt_material_elem)
+                    })
+
+                # Options are typically the same for all terms in a matching question;
+                # extract them from the first response_lid encountered.
+                if first_lid:
+                    render_choice_elem = lid.find('qti:render_choice', qti_ns)
+                    if render_choice_elem is not None:
+                        for label in render_choice_elem.findall('qti:response_label', qti_ns):
+                            option_mat_elem = label.find('.//qti:mattext', qti_ns) # .// to be safe
+                            if option_mat_elem is not None:
+                                option_text = get_mattext_content_for_extract(option_mat_elem)
+                                if option_text: # Ensure we don't add empty options
+                                    match_options.append(option_text)
+                    first_lid = False
+            q['match_prompts'] = match_prompts
+            q['match_options'] = match_options
+        elif qtype == 'multiple_answers_question':
+            q['type'] = 'multiple_answers_question'
+            prompt_material = item.find('.//qti:presentation/qti:material/qti:mattext', qti_ns)
+            if prompt_material is not None:
+                q['prompt_html'] = get_mattext_content_for_extract(prompt_material)
+                q['prompt'] = prompt_material.text  # Fallback or plain text
+
+            choices = []
+            choices_container = item.find('.//qti:presentation/qti:response_lid[@rcardinality="Multiple"]/qti:render_choice', qti_ns)
+            if choices_container is not None:
+                for label in choices_container.findall('qti:response_label', qti_ns):
+                    choice_mattext = label.find('qti:material/qti:mattext', qti_ns)
+                    if choice_mattext is not None:
+                        choices.append(get_mattext_content_for_extract(choice_mattext))
+            q['choices'] = choices
+        else: # Handles multiple_choice, true_false, numerical (if it had choices), etc.
+            choices = []
+            # General path for choices, typically under render_choice
+            # This path might need to be more specific if it incorrectly picks up other response_labels.
+            # For typical multiple choice: item -> presentation -> response_lid -> render_choice -> response_label
+            # Using .//qti:response_label to find all response_labels under the item.
             for label in item.findall('.//qti:response_label', qti_ns):
+                # Check if this label is part of a render_choice structure to be more specific for MCQs
+                # This is a simple check; more robust would be to check parent tags.
+                # For now, we assume any response_label not caught by specific types above might be a choice.
                 mat = label.find('.//qti:mattext', qti_ns)
-                if mat is not None and mat.text:
-                    choices.append(mat.text.strip())
+                choice_html = get_mattext_content_for_extract(mat)
+                if choice_html:
+                    choices.append(choice_html)
             q['choices'] = choices
         questions.append(q)
     return title, questions
@@ -145,16 +253,74 @@ def render_html(title, questions):
                     html.append(f"<li class='draggable' data-match-id='opt{i}'>{opt}</li>")
             html.append("</ul>")
             html.append("</div>")
-        elif q.get('type') == 'ordering':
-            html.append(f"<p class='prompt'>{idx}. {q['prompt']}</p>")
-            html.append("<ul class='choices sortable'>")
-            for choice in q.get('choices', []):
-                html.append(f"<li class='draggable choice'>{choice}</li>")
+        elif q.get('type') == 'ordering_question': # Changed from 'ordering' to 'ordering_question'
+            html.append(f"<p class='prompt'>{idx}. {q.get('prompt_html', q.get('prompt', ''))}</p>") # Use prompt_html
+            html.append("<ul class='choices sortable'>") # jQuery UI sortable will target this
+            for choice in q.get('choices', []): # Choices now contain HTML if present
+                html.append(f"<li class='choice'>{choice}</li>") # Removed 'draggable' class
             html.append("</ul>")
-        else:
+        elif q.get('type') == 'matching_question':
+            html.append(f"<p class='prompt'>{idx}. {q.get('prompt_html', q.get('prompt', ''))}</p>")
+            if q.get('match_prompts') and q.get('match_options'):
+                html.append("<div class='matching-items-container'>")
+                for mp_idx, match_prompt_item in enumerate(q['match_prompts']):
+                    html.append("<div class='match-item' style='margin-bottom: 0.5em; display: flex; align-items: center; padding-left: 1em;'>")
+                    html.append(f"<span class='match-prompt-text' style='margin-right: 1em; flex-basis: 50%;'>{match_prompt_item.get('text', '')}</span>")
+                    
+                    select_name = f"q{idx}_match_{mp_idx}_{match_prompt_item.get('id', mp_idx)}"
+                    select_html = f"<select name='{select_name}' class='match-options-select' style='flex-basis: 50%;'>"
+                    select_html += "<option value=''>Select...</option>"
+                    for option_text in q['match_options']:
+                        # Using html.escape for option text and value to be safe
+                        escaped_option_text = option_text.replace("<", "&lt;").replace(">", "&gt;") # Basic escape
+                        select_html += f"<option value='{escaped_option_text}'>{escaped_option_text}</option>"
+                    select_html += "</select>"
+                    html.append(select_html)
+                    html.append("</div>")
+                html.append("</div>")
+            else:
+                html.append("<p><em>Matching question is missing prompts or options.</em></p>")
+        elif q.get('type') == 'categorization_question':
+            html.append(f"<p class='prompt'>{idx}. {q.get('prompt_html', q.get('prompt', ''))}</p>") # Use prompt_html
+            html.append("<div class='categorization-container'>")
+            if q.get('items_to_categorize'):
+                for item_idx, item_to_cat in enumerate(q.get('items_to_categorize', [])):
+                    html.append("<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>") # Added basic styling
+                    html.append(f"<span class='item-text' style='margin-right: 1em;'>{item_to_cat['text']}</span>")
+                    # Create a select dropdown for categories
+                    # Ensure unique name for each select: q{question_index}_item_{item_identifier_or_index}
+                    select_name = f"q{idx}_item_{item_to_cat.get('ident', item_idx)}"
+                    select_html = f"<select name='{select_name}' class='category-select'>"
+                    select_html += "<option value=''>Select category...</option>" # Default option
+                    if q.get('categories'):
+                        for cat in q.get('categories', []):
+                            select_html += f"<option value='{cat.get('ident', '')}'>{cat.get('name', 'Unnamed Category')}</option>"
+                    select_html += "</select>"
+                    html.append(select_html)
+                    html.append("</div>")
+            else:
+                html.append("<p><em>No items found for categorization.</em></p>")
+            if not q.get('categories'):
+                html.append("<p><em>No categories found for categorization.</em></p>")
+            html.append("</div>")
+        elif q.get('type') == 'numerical_question':
             html.append(f"<p class='prompt'>{idx}. {q['prompt']}</p>")
+            # Use a unique name for the input field, e.g., q{question_index}_numerical
+            input_name = f"q{idx}_numerical"
+            html.append(f"<input type='number' name='{input_name}' class='numerical-input' step='any'>") # step='any' allows decimals
+        elif q.get('type') == 'multiple_answers_question':
+            html.append(f"<p class='prompt'>{idx}. {q.get('prompt_html', q.get('prompt', ''))}</p>")
+            html.append("<div class='choices'>")
+            if q.get('choices'):
+                for i, choice_html in enumerate(q['choices']):
+                    checkbox_id = f"q{idx}_choice{i}"
+                    html.append(f"<div class='choice'><input type='checkbox' id='{checkbox_id}' name='q{idx}_ans' value='{i}'><label for='{checkbox_id}'>{choice_html}</label></div>")
+            html.append("</div>")
+        else:
+            html.append(f"<p class='prompt'>{idx}. {q.get('prompt_html', q.get('prompt', ''))}</p>") # Use prompt_html
             html.append(f"<ul class='choices'>")
             for choice in q.get('choices', []):
+                # Default to radio buttons for unspecified types or simple multiple choice
                 html.append(f"<li><input type='radio' name='q{idx}'> {choice}</li>")
             html.append(f"</ul>")
         html.append(f"</div>")

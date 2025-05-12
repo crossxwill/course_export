@@ -49,29 +49,41 @@
 <div class='question'>
 <p class='qtype'>Type: categorization_question</p>
 <p class='prompt'>5. <p>Categorize the following statements about the Naive Augmentation technique as True or False</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q5'> Effectively corrects selection bias without introducing new bias.</li>
-<li><input type='radio' name='q5'> Data-driven and realistic approach.</li>
-<li><input type='radio' name='q5'> Commonly used by lenders in practice for building models.</li>
-<li><input type='radio' name='q5'> Tends to significantly overestimate default risk for rejects.</li>
-<li><input type='radio' name='q5'> Assumes rejected applicants have a 0% chance of defaulting.</li>
-<li><input type='radio' name='q5'> Incorporates data from rejected applicants into the training set.</li>
-<li><input type='radio' name='q5'> Effectively corrects selection bias without introducing new bias.</li>
-<li><input type='radio' name='q5'> Data-driven and realistic approach.</li>
-<li><input type='radio' name='q5'> Commonly used by lenders in practice for building models.</li>
-<li><input type='radio' name='q5'> Tends to significantly overestimate default risk for rejects.</li>
-<li><input type='radio' name='q5'> Assumes rejected applicants have a 0% chance of defaulting.</li>
-<li><input type='radio' name='q5'> Incorporates data from rejected applicants into the training set.</li>
-</ul>
+<div class='categorization-container'>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Effectively corrects selection bias without introducing new bias.</span>
+<select name='q5_item_50133347-8f51-45b9-b2a2-341eb46ca04f' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Data-driven and realistic approach.</span>
+<select name='q5_item_84b9a5dc-786b-4303-9c73-58475a5f1c9b' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Commonly used by lenders in practice for building models.</span>
+<select name='q5_item_884f2add-5bd0-4aab-adce-32759e3fbe72' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Tends to significantly overestimate default risk for rejects.</span>
+<select name='q5_item_8bac9f32-cc05-4e92-bfb9-c198c7743925' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Assumes rejected applicants have a 0% chance of defaulting.</span>
+<select name='q5_item_cd0ac59d-be85-4785-ba51-ade9ee3452a3' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Incorporates data from rejected applicants into the training set.</span>
+<select name='q5_item_e32567d1-6d42-4f1b-94e7-a8f4106463f6' class='category-select'><option value=''>Select category...</option><option value='58d8c283-6c78-4d84-a91d-7badb94eb529'>False</option><option value='8476dfc2-9f8d-47eb-bfd2-62beaac4ef1e'>True</option></select>
+</div>
+</div>
 </div>
 <div class='question'>
 <p class='qtype'>Type: ordering_question</p>
 <p class='prompt'>6. <p>Place the following steps for creating and training a model using the Naive Augmentation method, as described in the lecture, in the correct sequence</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q6'> <p>Train a credit risk model (e.g., CatBoost) using the combined (augmented) dataset</p></li>
-<li><input type='radio' name='q6'> <p>Identify the rejected applicants within the pool of all applicants (TTD population)</p></li>
-<li><input type='radio' name='q6'> <p>Append this modified rejected applicant data to the original KGB (approved) applicant data</p></li>
-<li><input type='radio' name='q6'> <p>Assign a default indicator of 1 to all applicants identified as rejects</p></li>
+<ul class='choices sortable'>
+<li class='choice'><p>Train a credit risk model (e.g., CatBoost) using the combined (augmented) dataset</p></li>
+<li class='choice'><p>Identify the rejected applicants within the pool of all applicants (TTD population)</p></li>
+<li class='choice'><p>Append this modified rejected applicant data to the original KGB (approved) applicant data</p></li>
+<li class='choice'><p>Assign a default indicator of 1 to all applicants identified as rejects</p></li>
 </ul>
 </div>
 <button type='submit'>Submit Answers</button>

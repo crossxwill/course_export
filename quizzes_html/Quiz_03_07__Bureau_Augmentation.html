@@ -33,26 +33,34 @@
 <div class='question'>
 <p class='qtype'>Type: ordering_question</p>
 <p class='prompt'>1. <p>Order the steps involved in the Bureau Proxy Augmentation&nbsp;</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q1'> <p>The credit bureau identifies which rejected applicants were granted credit elsewhere during a specified period and determines if they defaulted</p></li>
-<li><input type='radio' name='q1'> <p>Send the list of rejected applicants to a credit bureau (e.g., Experian, TransUnion, Equifax)</p></li>
-<li><input type='radio' name='q1'> <p>The augmented training dataset (KGB + matched rejects) is used to train a new model</p></li>
-<li><input type='radio' name='q1'> <p>Append the default indicator (good/bad) provided by the bureau to the matched rejected applicants</p></li>
+<ul class='choices sortable'>
+<li class='choice'><p>The credit bureau identifies which rejected applicants were granted credit elsewhere during a specified period and determines if they defaulted</p></li>
+<li class='choice'><p>Send the list of rejected applicants to a credit bureau (e.g., Experian, TransUnion, Equifax)</p></li>
+<li class='choice'><p>The augmented training dataset (KGB + matched rejects) is used to train a new model</p></li>
+<li class='choice'><p>Append the default indicator (good/bad) provided by the bureau to the matched rejected applicants</p></li>
 </ul>
 </div>
 <div class='question'>
 <p class='qtype'>Type: categorization_question</p>
 <p class='prompt'>2. <p>Categorize the following statements as either a “Pro” or a “Con” of the Bureau Augmentation method</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q2'> Only a subset of the rejected population can be included in the training data</li>
-<li><input type='radio' name='q2'> Applicants with very low credit scores are unlikely to be matched</li>
-<li><input type='radio' name='q2'> Reduces bias compared to using only KGB data</li>
-<li><input type='radio' name='q2'> Provides a true default indicator based on actual credit performance</li>
-<li><input type='radio' name='q2'> Only a subset of the rejected population can be included in the training data</li>
-<li><input type='radio' name='q2'> Applicants with very low credit scores are unlikely to be matched</li>
-<li><input type='radio' name='q2'> Reduces bias compared to using only KGB data</li>
-<li><input type='radio' name='q2'> Provides a true default indicator based on actual credit performance</li>
-</ul>
+<div class='categorization-container'>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Only a subset of the rejected population can be included in the training data</span>
+<select name='q2_item_098dda96-8f33-470c-9c63-8d94fa437042' class='category-select'><option value=''>Select category...</option><option value='060e238e-a9f3-41e4-9884-9b87d9267887'>Pro</option><option value='c8d88802-ea8e-4de5-b8b4-d8e9f4eeb3c1'>Con</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Applicants with very low credit scores are unlikely to be matched</span>
+<select name='q2_item_2ca722ab-510b-485c-8081-d5d38c333eb2' class='category-select'><option value=''>Select category...</option><option value='060e238e-a9f3-41e4-9884-9b87d9267887'>Pro</option><option value='c8d88802-ea8e-4de5-b8b4-d8e9f4eeb3c1'>Con</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Reduces bias compared to using only KGB data</span>
+<select name='q2_item_716ddceb-f5a8-435e-b034-f69d6eaef5ff' class='category-select'><option value=''>Select category...</option><option value='060e238e-a9f3-41e4-9884-9b87d9267887'>Pro</option><option value='c8d88802-ea8e-4de5-b8b4-d8e9f4eeb3c1'>Con</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Provides a true default indicator based on actual credit performance</span>
+<select name='q2_item_78f9e7ad-8a50-440e-a3d4-426b96e96949' class='category-select'><option value=''>Select category...</option><option value='060e238e-a9f3-41e4-9884-9b87d9267887'>Pro</option><option value='c8d88802-ea8e-4de5-b8b4-d8e9f4eeb3c1'>Con</option></select>
+</div>
+</div>
 </div>
 <div class='question'>
 <p class='qtype'>Type: fill_in_multiple_blanks_question</p>
@@ -62,21 +70,25 @@
 <p class='qtype'>Type: ordering_question</p>
 <p class='prompt'>4. <p>Rank the following methods (based on the simulation) from best to worst in predicting the risk in the TTD population.</p>
 <p>Hint: There is a known bug in Canvas for ordered items questions. You must interact with the question by clicking and dragging the items below, even if the initial order of the items is correct. Click, drag, order, then re-order until the ranking is correct.</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q4'> <p>KGB Model</p></li>
-<li><input type='radio' name='q4'> <p>Bureau Augmentation</p></li>
-<li><input type='radio' name='q4'> <p>Naive Augmentation</p></li>
+<ul class='choices sortable'>
+<li class='choice'><p>KGB Model</p></li>
+<li class='choice'><p>Bureau Augmentation</p></li>
+<li class='choice'><p>Naive Augmentation</p></li>
 </ul>
 </div>
 <div class='question'>
 <p class='qtype'>Type: categorization_question</p>
 <p class='prompt'>5. <p>Categorize the following types of rejected applicants according to their likelihood of being successfully matched with a default indicator via Bureau Augmentation</p></p>
-<ul class='choices'>
-<li><input type='radio' name='q5'> Applicants with very low credit scores</li>
-<li><input type='radio' name='q5'> Applicants with scores just below the approval score cutoff</li>
-<li><input type='radio' name='q5'> Applicants with very low credit scores</li>
-<li><input type='radio' name='q5'> Applicants with scores just below the approval score cutoff</li>
-</ul>
+<div class='categorization-container'>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Applicants with very low credit scores</span>
+<select name='q5_item_9fc16697-a6d9-4931-90e2-0c60b39b2675' class='category-select'><option value=''>Select category...</option><option value='3a9567c6-d447-454a-a234-4881a717885d'>More Likely</option><option value='a1556e9a-0a70-4ed4-b0b2-c93504cc1837'>Less Likely</option></select>
+</div>
+<div class='categorization-item' style='margin-bottom: 0.5em; display: flex; align-items: center;'>
+<span class='item-text' style='margin-right: 1em;'>Applicants with scores just below the approval score cutoff</span>
+<select name='q5_item_b812c9e8-68c7-496d-8bf9-f1437c13ef68' class='category-select'><option value=''>Select category...</option><option value='3a9567c6-d447-454a-a234-4881a717885d'>More Likely</option><option value='a1556e9a-0a70-4ed4-b0b2-c93504cc1837'>Less Likely</option></select>
+</div>
+</div>
 </div>
 <div class='question'>
 <p class='qtype'>Type: fill_in_multiple_blanks_question</p>
