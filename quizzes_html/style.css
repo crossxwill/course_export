@@ -1,0 +1,171 @@
+
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    max-width: 900px; 
+    margin: 2em auto; 
+    padding: 1.5em; 
+    background-color: #f4f6f8; 
+    color: #333; 
+    line-height: 1.6;
+}
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+}
+.question { 
+    background: #fff; 
+    border: 1px solid #e0e0e0; 
+    padding: 1.5em; 
+    margin-bottom: 1.5em; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.prompt { 
+    font-weight: 600; 
+    margin-bottom: 0.8em; 
+    font-size: 1.1em;
+    color: #34495e;
+}
+.qtype { 
+    font-style: italic; 
+    color: #7f8c8d; 
+    margin: -0.5em 0 1em 0; 
+    font-size: 0.9em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px dashed #eee;
+}
+.choices { list-style: none; padding-left: 0; }
+.choices li { margin: 0.5em 0; font-size: 1em; }
+.choices input[type='radio'] { margin-right: 8px; vertical-align: middle; }
+
+button[type='submit'] { 
+    background-color: #3498db; 
+    color: #fff; 
+    border: none; 
+    padding: 0.8em 1.5em; 
+    font-size: 1.05em; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.2s ease;
+    display: block;
+    margin: 2em auto 0;
+}
+button[type='submit']:hover { background-color: #2980b9; }
+
+/* General draggable/sortable styling */
+.draggable, .sortable .choice {
+    padding: 0.6em 0.8em;
+    margin: 0.4em 0;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    cursor: grab;
+    border-radius: 4px;
+    user-select: none;
+    font-size: 0.95em;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.draggable:active, .sortable .choice:active {
+    cursor: grabbing;
+    background-color: #e0e6e8;
+}
+.ui-draggable-dragging { /* Style for the helper clone while dragging */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    opacity: 0.9;
+    border: 1px solid #95a5a6 !important; /* Ensure border is visible */
+    z-index: 1000 !important; /* Ensure helper is on top */
+}
+.sortable-placeholder { /* Placeholder style for sortable */
+    border: 2px dashed #7f8c8d;
+    background-color: #f0f3f4;
+    height: 30px; /* Adjust to match item height */
+    margin: 0.4em 0;
+    border-radius: 4px;
+}
+
+
+/* Styling for sortable lists (ordering questions) */
+.sortable {
+    list-style-type: none;
+    padding: 0.8em;
+    background-color: #f9fafb; 
+    border: 1px solid #dfe4e7;
+    border-radius: 6px;
+    min-height: 40px; 
+}
+.sortable .choice { 
+    background-color: #fff; 
+    border-color: #d1d8dd;
+}
+
+
+/* Styling for matching questions */
+.match-container {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
+    margin-top: 1em;
+}
+.match-zones {
+    display: grid; /* Use grid for potentially better alignment */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive columns */
+    gap: 15px; 
+}
+.dropzone {
+    border: 2px dashed #3498db; 
+    padding: 1em;
+    min-height: 80px; /* Increased min-height */
+    background-color: #eaf5ff; 
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column; 
+    align-items: stretch; /* Make items stretch */
+    gap: 8px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.dropzone .zone-label {
+    font-size: 1em; /* Slightly larger label */
+    color: #2980b9;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #aed6f1;
+}
+.dropzone.drop-hover { 
+    background-color: #d4eaff; 
+    border-color: #2980b9;
+}
+.match-options {
+    list-style-type: none;
+    padding: 0.8em;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    background-color: #f0f3f4; 
+    border: 1px solid #dfe4e7;
+    border-radius: 6px;
+    min-height: 50px;
+}
+.match-options .draggable {
+    background-color: #d0f0c0; /* Light green for draggable options */
+    border-color: #77dd77;
+}
+
+/* Style for items once dropped into a dropzone */
+.dropzone .draggable {
+    background-color: #fff; 
+    border: 1px solid #aed6f1;
+    /* width: 100%; Ensure this doesn't conflict with flex item sizing */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin: 0; 
+}
+.blank-select {
+    margin: 0 5px;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    border: 1px solid #bdc3c7;
+    background-color: #fff;
+    font-size: 0.95em;
+}
