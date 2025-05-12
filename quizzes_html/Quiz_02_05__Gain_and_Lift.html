@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-05: Gain and Lift</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-05: Gain and Lift</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <div>
+<div><span>The </span><span>19,197</span><span> prospects in the first bin were selected <select name='q1_1' class='blank-select'><option value='based on the highest predictions'>based on the highest predictions</option><option value='randomly'>randomly</option><option value='based on the lowest predictions'>based on the lowest predictions</option></select>.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <div>
+<div><span>In the first bin, </span><span>19,197</span><span>&nbsp;prospects were sent direct mail.</span></div>
+<br>
+<div><span>In the first bin, we expected <select name='q2_1' class='blank-select'><option value='3,064'>3,064</option><option value='3,003'>3,003</option><option value='19,197'>19,197</option></select> responses. The actual number of responses was <select name='q2_2' class='blank-select'><option value='3,003'>3,003</option><option value='3,064'>3,064</option><option value='19,197'>19,197</option></select> responses.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>3. <div>
+<div><span>Instead of using your model to select </span><span>19,197</span><span>&nbsp;prospects, suppose you <strong>randomly </strong>selected </span><span>19,197</span><span> prospects.</span></div>
+<div><span>How many of them would you expect to respond?</span></div>
+</div></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <div>
+<div><span>Compare the following two campaign strategies:</span></div>
+<br>
+<div><span>(1) Select </span><span>19,197</span><span> prospects based on the highest model scores. The actual number of responses is "</span><span>a"</span><span>.</span></div>
+<br>
+<div><span>(2) Randomly select </span><span>19,197</span><span> prospects. The expected number of responses is "</span><span>b"</span><span>.</span></div>
+<br>
+<div><span>The ratio <img class="equation_image" title="\frac{a}{b}" src="https://canvas.northwestern.edu/equation_images/%255Cfrac%257Ba%257D%257Bb%257D?scale=1" alt="LaTeX: \frac{a}{b}" data-equation-content="\frac{a}{b}" data-ignore-a11y-check="" loading="lazy"> </span><span>is <select name='q4_1' class='blank-select'><option value='2.698'>2.698</option><option value='0.5395'>0.5395</option><option value='0.156'>0.156</option></select>. The value corresponds to the <select name='q4_2' class='blank-select'><option value='lift'>lift</option><option value='gain'>gain</option><option value='precision'>precision</option></select> in the first bin.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <div>
+<div><span>Suppose the average cost of sending direct mail is $7.00 per prospect and the average revenue from a response is $100 per client.</span></div>
+<br>
+<div><span>The ROI of randomly selecting </span><span>19,197</span><span> prospects is: <select name='q5_1' class='blank-select'><option value='-17.2%'>-17.2%</option><option value='2.3%'>2.3%</option><option value='8.1%'>8.1%</option></select>.</span></div>
+<br>
+<div><span>The ROI of selecting </span><span>19,197</span><span> prospects based on the highest model scores is: <select name='q5_2' class='blank-select'><option value='1.23%'>1.23%</option><option value='0%'>0%</option><option value='-5.33%'>-5.33%</option></select>.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <div>
+<div><span>Compare the following two campaign strategies:</span></div>
+<br>
+<div><span>(1) Select </span><span>38,225</span><span> prospects based on the highest model scores. The actual number of responses is "</span><span>a"</span><span>.</span></div>
+<br>
+<div><span>(2) Randomly select </span><span>38,225</span><span>&nbsp;prospects. The expected number of responses is </span><span>"b"</span><span>.</span></div>
+<br>
+<div><span>The ratio <img class="equation_image" title="\frac{a}{b}" src="https://canvas.northwestern.edu/equation_images/%255Cfrac%257Ba%257D%257Bb%257D?scale=1" alt="LaTeX: \frac{a}{b}" data-equation-content="\frac{a}{b}" data-ignore-a11y-check="" loading="lazy"> </span><span>is <select name='q6_1' class='blank-select'><option value='1.69996'>1.69996</option><option value='0.67679'>0.67679</option><option value='1.52361'>1.52361</option></select> The value corresponds to the <select name='q6_2' class='blank-select'><option value='lift'>lift</option><option value='gain'>gain</option><option value='recall'>recall</option></select> in the <select name='q6_3' class='blank-select'><option value='second'>second</option><option value='third'>third</option><option value='last'>last</option></select> bin.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>7. <div>
+<div><span>Suppose the average cost of sending direct mail is $7.00 per prospect and the average revenue from a response is $100 per client.</span></div>
+<br>
+<div><span>The ROI of randomly selecting </span><span>38,225</span><span> prospects is: <select name='q7_1' class='blank-select'><option value='-17.2%'>-17.2%</option><option value='2.3%'>2.3%</option><option value='6.1%'>6.1%</option></select>.</span></div>
+<br>
+<div><span>The ROI of selecting </span><span>38,225</span><span> prospects based on the highest model scores is: <select name='q7_2' class='blank-select'><option value='0.41%'>0.41%</option><option value='-2.3%'>-2.3%</option><option value='8.1%'>8.1%</option></select>.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>In the previous questions, the average cost of sending direct mail was set to $7.00 per prospect. In reality, the average cost would depend on the number of selected prospects. In future quizzes, we will calculate the average cost of sending direct mail.</p>
+<p>Select OK below.</p>
+<p><select name='q8_1' class='blank-select'><option value='OK'>OK</option><option value='Do not select'>Do not select</option></select></p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

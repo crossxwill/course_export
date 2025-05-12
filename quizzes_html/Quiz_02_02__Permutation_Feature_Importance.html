@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-02: Permutation Feature Importance</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-02: Permutation Feature Importance</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>The following is the model summary for a 2-feature linear regression model.</p>
+<hr>
+<pre>==============================================================================<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;coef &nbsp; &nbsp;std err &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;t &nbsp; &nbsp; &nbsp;P&gt;|t| &nbsp; &nbsp; &nbsp;[0.025 &nbsp; &nbsp; &nbsp;0.975]<br>------------------------------------------------------------------------------<br>Intercept &nbsp; &nbsp; &nbsp;9.9201 &nbsp; &nbsp; &nbsp;0.108 &nbsp; &nbsp; 92.199 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp; 9.709 &nbsp; &nbsp; &nbsp;10.131<br>x1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2.0036 &nbsp; &nbsp; &nbsp;0.110 &nbsp; &nbsp; 18.264 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp; 1.788 &nbsp; &nbsp; &nbsp; 2.219<br>x3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-2.8487 &nbsp; &nbsp; &nbsp;0.108 &nbsp; &nbsp;-26.265 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp;-3.061 &nbsp; &nbsp; &nbsp;-2.636<br>==============================================================================</pre>
+<hr>
+<p>The following is the model summary for a 3-feature linear regression model. The data and two models are identical except for the inclusion or exclusion of "x2".</p>
+<hr>
+<pre>==============================================================================<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;coef &nbsp; &nbsp;std err &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;t &nbsp; &nbsp; &nbsp;P&gt;|t| &nbsp; &nbsp; &nbsp;[0.025 &nbsp; &nbsp; &nbsp;0.975]<br>------------------------------------------------------------------------------<br>Intercept &nbsp; &nbsp; &nbsp;9.9565 &nbsp; &nbsp; &nbsp;0.098 &nbsp; &nbsp;101.928 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp; 9.765 &nbsp; &nbsp; &nbsp;10.148<br>x1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1.9496 &nbsp; &nbsp; &nbsp;0.100 &nbsp; &nbsp; 19.568 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp; 1.754 &nbsp; &nbsp; &nbsp; 2.145<br>x2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-3.3082 &nbsp; &nbsp; &nbsp;0.226 &nbsp; &nbsp;-14.643 &nbsp; &nbsp; &nbsp;0.000 &nbsp; &nbsp; &nbsp;-3.752 &nbsp; &nbsp; &nbsp;-2.865<br>x3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0.1533 &nbsp; &nbsp; &nbsp;0.227 &nbsp; &nbsp; &nbsp;0.674 &nbsp; &nbsp; &nbsp;0.500 &nbsp; &nbsp; &nbsp;-0.293 &nbsp; &nbsp; &nbsp; 0.600<br>==============================================================================</pre>
+<hr>
+<p>&nbsp;</p>
+<p>Use the absolute value of the t-statistic as a measure of feature importance. In the 2-feature model, "x3" is <select name='q1_1' class='blank-select'><option value='very important'>very important</option><option value='not important'>not important</option><option value='somewhat important'>somewhat important</option></select>. In the 3-feature model, "x3" is <select name='q1_2' class='blank-select'><option value='not important'>not important</option><option value='very important'>very important</option><option value='somewhat important'>somewhat important</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>The importance of a feature (e.g., FICO score) <select name='q2_1' class='blank-select'><option value='depends on the estimator'>depends on the estimator</option><option value='is independent of the estimator'>is independent of the estimator</option><option value='depends on the file format'>depends on the file format</option></select>. For example, FICO may be very important in a logistic regression but only moderately important in a random forest. In addition, the importance of a feature <select name='q2_2' class='blank-select'><option value='depends on the other features'>depends on the other features</option><option value='is independent of the other features'>is independent of the other features</option><option value='depends on the file format'>depends on the file format</option></select> that are available to the estimator. For example, the feature importance of FICO may increase significantly when VantageScore is excluded from the training data.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>3. <p>What are the steps to calculate permutation feature importance?</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q3'> <p>Evaluate the baseline performance of your model on a validation or test dataset.</p></li>
+<li><input type='radio' name='q3'> <p>For each feature, repeatedly shuffle its values (e.g., 5–10 times) while keeping the other features unchanged.</p></li>
+<li><input type='radio' name='q3'> <p>Rank the features based on the average performance drop relative to the baseline; a larger drop indicates higher feature importance.</p></li>
+<li><input type='radio' name='q3'> <p>After each shuffle, recalculate the model's performance using the modified (corrupted) dataset.</p></li>
+<li><input type='radio' name='q3'> <p>Average the performance drops across all shuffles to obtain a robust estimate of the feature's importance.</p></li>
+</ul>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

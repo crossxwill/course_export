@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-04: ALE Plot</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-04: ALE Plot</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>A partial dependence plot (PDP) and an accumulated local effects (ALE) plot both describe the relationship between a feature and the predicted outcome of a machine learning model.</p>
+<p>A common criticism of PDP is that it can generate synthetic observations that <select name='q1_1' class='blank-select'><option value='are unlikely to occur'>are unlikely to occur</option><option value='are likely to occur'>are likely to occur</option></select> in the training data. For example, if a model predicting "home price" uses "number of bedrooms" and "square footage" as features, and a training observation has 2 bedrooms and 1300 square feet, a PDP for square footage might produce an unrealistic synthetic observation with <select name='q1_2' class='blank-select'><option value='2 bedrooms'>2 bedrooms</option><option value='1 bedroom'>1 bedroom</option><option value='3 bedrooms'>3 bedrooms</option></select> and <select name='q1_3' class='blank-select'><option value='5300 square feet'>5300 square feet</option><option value='1250 square feet'>1250 square feet</option><option value='1350 square feet'>1350 square feet</option></select>.</p>
+<p>In contrast, an ALE plot for "square footage" divides the feature range into intervals. For observations in an interval, the method calculates the local effect of changing the values of 'square footage" <select name='q1_4' class='blank-select'><option value='from the min to the max of that interval'>from the min to the max of that interval</option><option value='from the min to the max of the training data'>from the min to the max of the training data</option></select>, while keeping other features at their observed values. This method reduces (but does not eliminate) the risk of unrealistic synthetic observations.</p>
+<p>Finally, the method accumulates the local effects across the intervals.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>2. <p>Steps to create an ALE plot for "CC_Utilization" (a continuous feature):</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q2'> <p>Plot the centered accumulated effects (y-axis) against interval averages (x-axis)</p></li>
+<li><input type='radio' name='q2'> <p>Create K intervals across the range of CC_Utilization values</p></li>
+<li><input type='radio' name='q2'> <p>For each observation, subtract the lower bound prediction from the upper bound prediction</p></li>
+<li><input type='radio' name='q2'> <p>Calculate the mean of all accumulated effects, and subtract this mean from each accumulated effect</p></li>
+<li><input type='radio' name='q2'> <p>Generate paired predictions (i.e., lower and upper bound of CC_Utilization) for each observation</p></li>
+<li><input type='radio' name='q2'> <p>Accumulate effects across intervals (starting with the first interval)</p></li>
+<li><input type='radio' name='q2'> <p>For each interval, average all prediction differences from observations in that interval</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>About 83% of prospects do not have a credit card in the training data (i.e., "CC_utilization == - 1").</p>
+<p>The unusual distribution of "CC_utilization" causes the binning to behave in unexpected ways.</p>
+<p>The following Python code <strong>tries</strong> to split the observations into 100 bins.</p>
+<hr>
+<div>
+<pre><span>from</span><span> PyALE._src.lib </span><span>import</span><span> quantile_ied</span><br><br><span>import</span><span> pandas </span><span>as</span><span> pd</span><br><br><span>import</span><span> numpy </span><span>as</span><span> np</span><br><br><span>grid_size = </span><span>100</span><br><br><span>df_ale = train_data.sample(</span><span>40_000</span><span>, random_state=</span><span>2025</span><span>)</span><br><br><span>quantiles = np.linspace(</span><span>0</span><span>, </span><span>1</span><span>, grid_size + </span><span>1</span><span>, endpoint=</span><span>True</span><span>)</span><br><br><span>cut_points = [df_ale.CC_utilization.min()] + quantile_ied(df_ale.CC_utilization, quantiles).to_list()</span><br><br><span>df_ale[</span><span>'binned_CC_utilization'</span><span>] = pd.cut(df_ale.CC_utilization, cut_points, include_lowest=</span><span>True</span><span>, duplicates=</span><span>'drop'</span><span>)</span><br><br><span>df_ale.binned_CC_utilization.value_counts().sort_index()</span></pre>
+</div>
+<hr>
+<p>Although 100 bins were attempted, the final number of bins was <select name='q3_1' class='blank-select'><option value='14'>14</option><option value='24'>24</option><option value='100'>100</option></select>.</p>
+<p>With 40,000 observations in "<span>df_ale" and 100 bins, we expect (approximately) <select name='q3_2' class='blank-select'><option value='400'>400</option><option value='2000'>2000</option><option value='4000'>4000</option></select> observations per bin. However, the first bin contains <select name='q3_3' class='blank-select'><option value='33624'>33624</option><option value='400'>400</option><option value='26324'>26324</option></select> observations and the last bin contains <select name='q3_4' class='blank-select'><option value='1590'>1590</option><option value='400'>400</option><option value='5190'>5190</option></select> observations.</span></p>
+<p><span>Reducing the number of bins (e.g., from 100 to 20) would <select name='q3_5' class='blank-select'><option value='increase'>increase</option><option value='decrease'>decrease</option></select> the expected observations per bin. The alternative is to increase the total number of <select name='q3_6' class='blank-select'><option value='observations'>observations</option><option value='columns'>columns</option></select> in "df_ale".</span></p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p><select name='q4_1' class='blank-select'><option value='An ALE plot'>An ALE plot</option><option value='A PDP'>A PDP</option><option value='A SHAP plot'>A SHAP plot</option></select> describes the relationship between a feature and model predictions, and uses local differences based on observed data (ensuring the synthetic observations are realistic).</p>
+<p>&nbsp;</p>
+<p>In contrast, <select name='q4_2' class='blank-select'><option value='a PDP'>a PDP</option><option value='an ALE plot'>an ALE plot</option><option value='a SHAP plot'>a SHAP plot</option></select> averages predictions over a grid of feature values, which can include feature combinations not observed in the training set. This means <select name='q4_3' class='blank-select'><option value='an ALE plot'>an ALE plot</option><option value='a PDP'>a PDP</option><option value='a SHAP plot'>a SHAP plot</option></select> reflects the model's interpolation within the training data distribution, while <select name='q4_4' class='blank-select'><option value='a PDP'>a PDP</option><option value='an ALE plot'>an ALE plot</option><option value='a SHAP plot'>a SHAP plot</option></select> can reveal behavior for feature combinations the model never saw.</p>
+<p>&nbsp;</p>
+<p>As a model developer, you can use <select name='q4_5' class='blank-select'><option value='a PDP'>a PDP</option><option value='an ALE plot'>an ALE plot</option></select> to identify feature combinations that might result in unintuitive predictions. You could also generate an ALE plot using a test data set or simulated data set.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

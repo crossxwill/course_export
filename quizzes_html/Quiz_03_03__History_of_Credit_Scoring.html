@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-03: History of Credit Scoring</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-03: History of Credit Scoring</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>1. <p>Drag and drop the following companies into the correct category based on their primary role in the credit scoring ecosystem.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q1'> Equifax</li>
+<li><input type='radio' name='q1'> Experian</li>
+<li><input type='radio' name='q1'> TransUnion</li>
+<li><input type='radio' name='q1'> Fair Isaac (FICO)</li>
+<li><input type='radio' name='q1'> VantageScore</li>
+<li><input type='radio' name='q1'> Equifax</li>
+<li><input type='radio' name='q1'> Experian</li>
+<li><input type='radio' name='q1'> TransUnion</li>
+<li><input type='radio' name='q1'> Fair Isaac (FICO)</li>
+<li><input type='radio' name='q1'> VantageScore</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: matching_question</p>
+<p class='prompt'>2. <p>Match the description or concept on the left with the most appropriate phrase or entity on the right</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q2'> Credit Bureau</li>
+<li><input type='radio' name='q2'> ECOA / FCRA</li>
+<li><input type='radio' name='q2'> 3 C’s</li>
+<li><input type='radio' name='q2'> FICO</li>
+<li><input type='radio' name='q2'> VantageScore</li>
+<li><input type='radio' name='q2'> Credit Bureau</li>
+<li><input type='radio' name='q2'> ECOA / FCRA</li>
+<li><input type='radio' name='q2'> 3 C’s</li>
+<li><input type='radio' name='q2'> FICO</li>
+<li><input type='radio' name='q2'> VantageScore</li>
+<li><input type='radio' name='q2'> Credit Bureau</li>
+<li><input type='radio' name='q2'> ECOA / FCRA</li>
+<li><input type='radio' name='q2'> 3 C’s</li>
+<li><input type='radio' name='q2'> FICO</li>
+<li><input type='radio' name='q2'> VantageScore</li>
+<li><input type='radio' name='q2'> Credit Bureau</li>
+<li><input type='radio' name='q2'> ECOA / FCRA</li>
+<li><input type='radio' name='q2'> 3 C’s</li>
+<li><input type='radio' name='q2'> FICO</li>
+<li><input type='radio' name='q2'> VantageScore</li>
+<li><input type='radio' name='q2'> Credit Bureau</li>
+<li><input type='radio' name='q2'> ECOA / FCRA</li>
+<li><input type='radio' name='q2'> 3 C’s</li>
+<li><input type='radio' name='q2'> FICO</li>
+<li><input type='radio' name='q2'> VantageScore</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>3. <p>Arrange the following key events in the history of credit scoring in the correct chronological order, from earliest to latest</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q3'> <p>Fair Lending laws like ECOA and FCRA are enacted</p></li>
+<li><input type='radio' name='q3'> <p>The three major credit bureaus create VantageScore as a joint venture</p></li>
+<li><input type='radio' name='q3'> <p>FICO launches its first general purpose score based only on credit bureau data</p></li>
+<li><input type='radio' name='q3'> <p>Fair Isaac is founded, aiming to create objective, data-driven credit assessments</p></li>
+<li><input type='radio' name='q3'> <p>Fannie Mae and Freddie Mac begin requiring FICO scores for mortgage purchases</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>The introduction of fair lending laws in the 1970s increased the benefit of using FICO scores partly because they provided lenders with objective reasons, known as <select name='q4_1' class='blank-select'><option value='adverse action'>adverse action</option><option value='denial justification'>denial justification</option><option value='score factor'>score factor</option></select> codes (or reason codes), when denying credit applications.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>The type of data used exclusively for the general purpose FICO score introduced in 1989 comes from the <select name='q5_1' class='blank-select'><option value='credit bureaus'>credit bureaus</option><option value='lender databases'>lender databases</option><option value='FICO databases'>FICO databases</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>The main competitor brand to FICO scores, created by the credit bureaus themselves, is called <select name='q6_1' class='blank-select'><option value='VantageScore'>VantageScore</option><option value='CreditView'>CreditView</option><option value='Beacon'>Beacon</option></select>.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

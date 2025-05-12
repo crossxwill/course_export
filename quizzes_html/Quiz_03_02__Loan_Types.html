@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-02: Loan Types</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-02: Loan Types</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>1. <p>Categorize the following loan types by dragging and dropping them based on two key characteristics: whether they require Collateral (Secured/Unsecured) and their structure as a Term Loan or Line of Credit.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q1'> Auto Loan</li>
+<li><input type='radio' name='q1'> Mortgage</li>
+<li><input type='radio' name='q1'> Student Loan</li>
+<li><input type='radio' name='q1'> HELOC</li>
+<li><input type='radio' name='q1'> Personal Line of Credit</li>
+<li><input type='radio' name='q1'> Credit Card</li>
+<li><input type='radio' name='q1'> Personal Loan</li>
+<li><input type='radio' name='q1'> Margin Loan</li>
+<li><input type='radio' name='q1'> Auto Loan</li>
+<li><input type='radio' name='q1'> Mortgage</li>
+<li><input type='radio' name='q1'> Student Loan</li>
+<li><input type='radio' name='q1'> HELOC</li>
+<li><input type='radio' name='q1'> Personal Line of Credit</li>
+<li><input type='radio' name='q1'> Credit Card</li>
+<li><input type='radio' name='q1'> Personal Loan</li>
+<li><input type='radio' name='q1'> Margin Loan</li>
+<li><input type='radio' name='q1'> Auto Loan</li>
+<li><input type='radio' name='q1'> Mortgage</li>
+<li><input type='radio' name='q1'> Student Loan</li>
+<li><input type='radio' name='q1'> HELOC</li>
+<li><input type='radio' name='q1'> Personal Line of Credit</li>
+<li><input type='radio' name='q1'> Credit Card</li>
+<li><input type='radio' name='q1'> Personal Loan</li>
+<li><input type='radio' name='q1'> Margin Loan</li>
+<li><input type='radio' name='q1'> Auto Loan</li>
+<li><input type='radio' name='q1'> Mortgage</li>
+<li><input type='radio' name='q1'> Student Loan</li>
+<li><input type='radio' name='q1'> HELOC</li>
+<li><input type='radio' name='q1'> Personal Line of Credit</li>
+<li><input type='radio' name='q1'> Credit Card</li>
+<li><input type='radio' name='q1'> Personal Loan</li>
+<li><input type='radio' name='q1'> Margin Loan</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: matching_question</p>
+<p class='prompt'>2. <p>Match the primary characteristic on the left with the corresponding loan type on the right.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q2'> Credit Card</li>
+<li><input type='radio' name='q2'> Auto Loan</li>
+<li><input type='radio' name='q2'> Mortgage</li>
+<li><input type='radio' name='q2'> Personal Loan</li>
+<li><input type='radio' name='q2'> HELOC</li>
+<li><input type='radio' name='q2'> Credit Card</li>
+<li><input type='radio' name='q2'> Auto Loan</li>
+<li><input type='radio' name='q2'> Mortgage</li>
+<li><input type='radio' name='q2'> Personal Loan</li>
+<li><input type='radio' name='q2'> HELOC</li>
+<li><input type='radio' name='q2'> Credit Card</li>
+<li><input type='radio' name='q2'> Auto Loan</li>
+<li><input type='radio' name='q2'> Mortgage</li>
+<li><input type='radio' name='q2'> Personal Loan</li>
+<li><input type='radio' name='q2'> HELOC</li>
+<li><input type='radio' name='q2'> Credit Card</li>
+<li><input type='radio' name='q2'> Auto Loan</li>
+<li><input type='radio' name='q2'> Mortgage</li>
+<li><input type='radio' name='q2'> Personal Loan</li>
+<li><input type='radio' name='q2'> HELOC</li>
+<li><input type='radio' name='q2'> Credit Card</li>
+<li><input type='radio' name='q2'> Auto Loan</li>
+<li><input type='radio' name='q2'> Mortgage</li>
+<li><input type='radio' name='q2'> Personal Loan</li>
+<li><input type='radio' name='q2'> HELOC</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>3. <p>Arrange the typical phases of a Home Equity Line of Credit (HELOC) in the correct chronological order, from beginning to end.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q3'> <p>The ability to draw new funds ceases</p></li>
+<li><input type='radio' name='q3'> <p>The borrower can draw funds as needed up to the credit limit, paying interest on the amount borrowed</p></li>
+<li><input type='radio' name='q3'> <p>The borrower makes scheduled payments to repay the outstanding balance over a fixed period</p></li>
+<li><input type='radio' name='q3'> <p>The outstanding balance converts to an amortizing loan</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>The feature of a line of credit allowing borrowers to borrow, repay, and then re-borrow funds up to a set limit without needing a new application is described as <select name='q4_1' class='blank-select'><option value='revolving'>revolving</option><option value='amortizing'>amortizing</option><option value='variable'>variable</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>When a borrower fails to make the scheduled payments on their loan, it results in a(n) <select name='q5_1' class='blank-select'><option value='default'>default</option><option value='foreclosure'>foreclosure</option><option value='reposession'>reposession</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>Mortgages with loan amounts exceeding the limits for purchase by Fannie Mae or Freddie Mac are referred to as non-conforming or <select name='q6_1' class='blank-select'><option value='jumbo'>jumbo</option><option value='subprime'>subprime</option><option value='conventional'>conventional</option></select> mortgages.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>7. <p>The most common mortgage term is <select name='q7_1' class='blank-select'><option value='30 years'>30 years</option><option value='5 years'>5 years</option><option value='40 years'>40 years</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>The typical draw period for HELOC is <select name='q8_1' class='blank-select'><option value='10 years'>10 years</option><option value='2 years'>2 years</option><option value='20'>20</option></select>.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

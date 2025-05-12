@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-01: Lending Club EDA</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-01: Lending Club EDA</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>Training a credit risk model using only data from approved applicants can lead to selection bias, as it fails to consider the risk profile of <select name='q1_1' class='blank-select'><option value='rejected applicants'>rejected applicants</option><option value='applicants with high credit scores'>applicants with high credit scores</option><option value='missed opportunities'>missed opportunities</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>In the rejected applicants’ data, the "debt_to_income_ratio" feature was initially stored as a <select name='q2_1' class='blank-select'><option value='text data type'>text data type</option><option value='integer data type'>integer data type</option><option value='float data type'>float data type</option></select> because it included non-numeric characters.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>The histogram comparison after data cleaning showed that accepted applicants likely faced a hard cut-off based on credit score, while the large number of missing scores in the rejected data were imputed using the <select name='q3_1' class='blank-select'><option value='10th percentile'>10th percentile</option><option value='median'>median</option><option value='90th percentile'>90th percentile</option></select> of the non-missing rejected scores</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

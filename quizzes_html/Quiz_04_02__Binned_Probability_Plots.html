@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-02: Binned Probability Plots</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-02: Binned Probability Plots</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>In credit scorecard modeling, binned probability plots are a technique used primarily to visualize and measure the strength of the <select name='q1_1' class='blank-select'><option value='monotonic'>monotonic</option><option value='linear'>linear</option><option value='causal'>causal</option></select> relationship between a continuous feature and a binary target outcome.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>When analyzing continuous features with binned probability plots, the feature is divided into bins (e.g., using quantile cuts), and then <select name='q2_1' class='blank-select'><option value='Spearman'>Spearman</option><option value='Pearson'>Pearson</option><option value='Mutual'>Mutual</option></select> correlation is calculated between the integer bin labels and the observed event rates within each bin to assess the strength and direction of the relationship.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Unlike continuous features that are binned, categorical features use their existing categories as natural bins. To measure the association between a categorical feature (which lacks ordinality) and the binary target, <select name='q3_1' class='blank-select'><option value='mutual information'>mutual information</option><option value='Pearson correlation'>Pearson correlation</option><option value='Euclidean distance'>Euclidean distance</option></select> is calculated instead of Spearman correlation.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>A major drawback of the binned probability plots (for continuous features) is that the Spearman correlation can be sensitive to the number of bins. Re-estimate the correlation for each of the following features by using 20 bins (rather than 10 bins):</p>
+<p>&nbsp;</p>
+<p>Loan Amount: <select name='q4_1' class='blank-select'><option value='0.645'>0.645</option><option value='1.000'>1.000</option><option value='0.756'>0.756</option></select></p>
+<p>Debt-to-Income: <select name='q4_2' class='blank-select'><option value='0.991'>0.991</option><option value='1.000'>1.000</option><option value='0.892'>0.892</option></select></p>
+<p>Credit Score: <select name='q4_3' class='blank-select'><option value='-1.000'>-1.000</option><option value='-0.983'>-0.983</option><option value='0.994'>0.994</option></select></p>
+<p>Employment Length: <select name='q4_4' class='blank-select'><option value='-0.822'>-0.822</option><option value='-1.000'>-1.000</option><option value='-0.756'>-0.756</option></select></p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

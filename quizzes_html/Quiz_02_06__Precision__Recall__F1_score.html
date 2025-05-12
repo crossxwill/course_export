@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-06: Precision, Recall, F1-score</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-06: Precision, Recall, F1-score</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: matching_question</p>
+<p class='prompt'>1. <p>Use the following table to match each value.</p>
+<table style="border-collapse: collapse; width: 100%; height: 195.428px; border-style: solid; margin-left: auto; margin-right: auto;" border="1" width="826">
+<tbody>
+<tr style="height: 52.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 52.5714px;" width="17">id</td>
+<td style="width: 185.402px; text-align: center; height: 52.5714px;" width="97">predicted_prob (p)</td>
+<td style="width: 171.429px; text-align: center; height: 52.5714px;" width="81">actual_class</td>
+<td style="width: 200.188px; text-align: center; height: 52.5714px;" width="161">predicted_class<br>(p &gt; 0.05)</td>
+<td style="width: 201.821px; text-align: center; height: 52.5714px;" width="90">true_positives</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 185.402px; text-align: center; height: 28.5714px;">1.0%</td>
+<td style="width: 171.429px; text-align: center; height: 28.5714px;">0</td>
+<td style="width: 200.188px; text-align: center; height: 28.5714px;">0</td>
+<td style="width: 201.821px; text-align: center; height: 28.5714px;">0</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 28.5714px;">2</td>
+<td style="width: 185.402px; text-align: center; height: 28.5714px;">3.0%</td>
+<td style="width: 171.429px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 200.188px; text-align: center; height: 28.5714px;">0</td>
+<td style="width: 201.821px; text-align: center; height: 28.5714px;">0</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 28.5714px;">3</td>
+<td style="width: 185.402px; text-align: center; height: 28.5714px;">16.0%</td>
+<td style="width: 171.429px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 200.188px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 201.821px; text-align: center; height: 28.5714px;">1</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 28.5714px;">4</td>
+<td style="width: 185.402px; text-align: center; height: 28.5714px;">3.5%</td>
+<td style="width: 171.429px; text-align: center; height: 28.5714px;">0</td>
+<td style="width: 200.188px; text-align: center; height: 28.5714px;">0</td>
+<td style="width: 201.821px; text-align: center; height: 28.5714px;">0</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 66.5893px; text-align: center; height: 28.5714px;">5</td>
+<td style="width: 185.402px; text-align: center; height: 28.5714px;">5.1%</td>
+<td style="width: 171.429px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 200.188px; text-align: center; height: 28.5714px;">1</td>
+<td style="width: 201.821px; text-align: center; height: 28.5714px;">1</td>
+</tr>
+</tbody>
+</table></p>
+<ul class='choices'>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 3</li>
+<li><input type='radio' name='q1'> 5%</li>
+<li><input type='radio' name='q1'> 2</li>
+<li><input type='radio' name='q1'> 80%</li>
+<li><input type='radio' name='q1'> 66.67%</li>
+<li><input type='radio' name='q1'> 100%</li>
+<li><input type='radio' name='q1'> 5.7%</li>
+<li><input type='radio' name='q1'> 5</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>Use the following table to answer the question.</p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 101.286px;" border="1" width="272">
+<tbody>
+<tr style="height: 28.5714px;">
+<td style="width: 145.795px; text-align: center; height: 28.5714px;" width="97">id</td>
+<td style="width: 125.634px; text-align: center; height: 28.5714px;" width="81">h</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 145.795px; text-align: center; height: 28.5714px;">A</td>
+<td style="width: 125.634px; text-align: center; height: 28.5714px;">2%</td>
+</tr>
+<tr style="height: 28.5714px;">
+<td style="width: 145.795px; text-align: center; height: 28.5714px;">B</td>
+<td style="width: 125.634px; text-align: center; height: 28.5714px;">30%</td>
+</tr>
+<tr style="height: 15.5714px;">
+<td style="width: 145.795px; text-align: center; height: 15.5714px;">C</td>
+<td style="width: 125.634px; text-align: center; height: 15.5714px;">
+<p>4%</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>The average of h is <select name='q2_1' class='blank-select'><option value='12%'>12%</option><option value='3.83%'>3.83%</option><option value='4.00%'>4.00%</option></select>. The harmonic mean of h is <select name='q2_2' class='blank-select'><option value='3.83%'>3.83%</option><option value='12%'>12%</option><option value='4.00%'>4.00%</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>3. <p>Review the <a class="inline_disabled" title="Link" href="https://github.com/autogluon/autogluon/blob/master/core/src/autogluon/core/metrics/__init__.py" target="_blank" rel="noopener noreferrer">documentation</a>&nbsp;for autogluon.core.metrics submodule for a list of classification and regression evaluation metrics.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q3'> balanced_accuracy</li>
+<li><input type='radio' name='q3'> precision</li>
+<li><input type='radio' name='q3'> mean_squared_error</li>
+<li><input type='radio' name='q3'> recall</li>
+<li><input type='radio' name='q3'> f1</li>
+<li><input type='radio' name='q3'> root_mean_squared_error</li>
+<li><input type='radio' name='q3'> accuracy</li>
+<li><input type='radio' name='q3'> mean_absolute_error</li>
+<li><input type='radio' name='q3'> mcc</li>
+<li><input type='radio' name='q3'> pearsonr</li>
+<li><input type='radio' name='q3'> spearmanr</li>
+<li><input type='radio' name='q3'> log_loss</li>
+<li><input type='radio' name='q3'> roc_auc</li>
+<li><input type='radio' name='q3'> r2</li>
+<li><input type='radio' name='q3'> balanced_accuracy</li>
+<li><input type='radio' name='q3'> precision</li>
+<li><input type='radio' name='q3'> mean_squared_error</li>
+<li><input type='radio' name='q3'> recall</li>
+<li><input type='radio' name='q3'> f1</li>
+<li><input type='radio' name='q3'> root_mean_squared_error</li>
+<li><input type='radio' name='q3'> accuracy</li>
+<li><input type='radio' name='q3'> mean_absolute_error</li>
+<li><input type='radio' name='q3'> mcc</li>
+<li><input type='radio' name='q3'> pearsonr</li>
+<li><input type='radio' name='q3'> spearmanr</li>
+<li><input type='radio' name='q3'> log_loss</li>
+<li><input type='radio' name='q3'> roc_auc</li>
+<li><input type='radio' name='q3'> r2</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Given a decision threshold (p*) and a set of predicted probabilities (p), precision and recall can differ significantly. When they are not equal and differ significantly, the F1-score tends to favor <select name='q4_1' class='blank-select'><option value='the lower value'>the lower value</option><option value='the higher value'>the higher value</option><option value='the arithmetic average of the two values'>the arithmetic average of the two values</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>Rather than choosing a decision threshold that maximizes the F1-score, we could have chosen a decision threshold that maximizes return on investment (ROI). However, you would need estimates of average cost per direct mail and average revenue per response in order to calculate ROI. Average cost per mail could vary based on the number of predicted positives.</p>
+<p>&nbsp;</p>
+<p>Select "OK" below to proceed.</p>
+<p><select name='q5_1' class='blank-select'><option value='OK'>OK</option><option value='Do not select'>Do not select</option></select></p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

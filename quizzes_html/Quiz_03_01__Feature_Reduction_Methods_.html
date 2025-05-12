@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-01: Feature Reduction Methods </title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-01: Feature Reduction Methods </h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>In the United States, the Equal Credit Opportunity Act (ECOA) prohibits the use of protected characteristics to target or exclude credit offers. Protected characteristics include race, color, religion, national origin, <select name='q1_1' class='blank-select'><option value='sex'>sex</option><option value='credit score'>credit score</option><option value='number of credit cards'>number of credit cards</option></select>, <select name='q1_2' class='blank-select'><option value='marital status'>marital status</option><option value='credit utilization rates'>credit utilization rates</option><option value='number of delinquencies'>number of delinquencies</option></select>, and <select name='q1_3' class='blank-select'><option value='age'>age</option><option value='mortgage loan amount'>mortgage loan amount</option><option value='credit card debt'>credit card debt</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>Credit bureau data sets typically include <select name='q2_1' class='blank-select'><option value='many'>many</option><option value='a few'>a few</option></select> features that capture similar underlying credit behaviors, which often leads to <select name='q2_2' class='blank-select'><option value='high collinearity'>high collinearity</option><option value='low collinearity'>low collinearity</option></select> between features. This redundancy could degrade out-of-sample model performance, making it advantageous to apply proper <select name='q2_3' class='blank-select'><option value='feature selection'>feature selection</option><option value='feature extraction'>feature extraction</option><option value='feature engineering'>feature engineering</option></select> and <select name='q2_4' class='blank-select'><option value='regularization'>regularization</option><option value='data standardization'>data standardization</option><option value='encoding'>encoding</option></select> techniques. While having <select name='q2_5' class='blank-select'><option value='a very large number of observations'>a very large number of observations</option><option value='a small number of observations'>a small number of observations</option></select> can reduce overfitting, selecting a large number of features can still harm model interpretability.&nbsp;</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Feature selection methods change the training data by <select name='q3_1' class='blank-select'><option value='reducing the number of columns'>reducing the number of columns</option><option value='reducing the number of rows'>reducing the number of rows</option><option value='increasing the number of columns'>increasing the number of columns</option><option value='increasing the number of rows'>increasing the number of rows</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Using a scikit-learn pipeline ensures that feature selection is applied consistently within each cross-validation fold, avoiding <select name='q4_1' class='blank-select'><option value='data leakage'>data leakage</option><option value='data bias'>data bias</option><option value='data normalization'>data normalization</option></select> by fitting only on the training data. It encapsulates preprocessing and modeling steps into a single unit, simplifying reproducibility and deployment. In contrast, doing feature selection outside the pipeline risks manual errors and <select name='q4_2' class='blank-select'><option value='potential data leakage'>potential data leakage</option><option value='potential data normalization'>potential data normalization</option><option value='potential data bias'>potential data bias</option></select>, as the same selection might inadvertently be applied to <select name='q4_3' class='blank-select'><option value='test data'>test data</option><option value='train data'>train data</option></select>. This makes the pipeline approach more robust and maintainable for reliable model evaluation.<br><br>In addition, by adding a categorical encoding step in the pipeline, we ensure that each categorical feature is encoded <select name='q4_4' class='blank-select'><option value='consistently'>consistently</option><option value='differently'>differently</option></select> between the train and test data sets.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>SelectKBest is a filter-based method that ranks features based on individual scores, and for binary targets, using scores like <select name='q5_1' class='blank-select'><option value='chi2'>chi2</option><option value='mutual_info_regression'>mutual_info_regression</option><option value='r_regression'>r_regression</option></select>, <select name='q5_2' class='blank-select'><option value='f_classif'>f_classif</option><option value='principal component analysis'>principal component analysis</option><option value='recursive feature elimination'>recursive feature elimination</option></select>, or <select name='q5_3' class='blank-select'><option value='mutual_info_classif'>mutual_info_classif</option><option value='random forest feature importance'>random forest feature importance</option><option value='r_regression'>r_regression</option></select> are common. The function's main limitations are it ignores <select name='q5_4' class='blank-select'><option value='feature interactions'>feature interactions</option><option value='non-linear relationships'>non-linear relationships</option><option value='linear relationships'>linear relationships</option></select> and <select name='q5_5' class='blank-select'><option value='feature redundancy (multicollinearity)'>feature redundancy (multicollinearity)</option><option value='feature scaling'>feature scaling</option><option value='feature imbalance'>feature imbalance</option></select> since it evaluates each feature separately. Despite these drawbacks, its simplicity and <select name='q5_6' class='blank-select'><option value='speed'>speed</option><option value='accuracy'>accuracy</option><option value='robustness'>robustness</option></select> make SelectKBest a popular choice for feature selection.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>Mutual information measures the <select name='q6_1' class='blank-select'><option value='dependence'>dependence</option><option value='linear relationship'>linear relationship</option><option value='redundancy'>redundancy</option></select> between a feature and the target outcome.&nbsp;</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>7. <p>Use <a class="inline_disabled" href="https://github.com/crossxwill/IML4Finance/blob/main/quiz03-01.py" target="_blank" rel="noopener noreferrer">quiz03-01.py</a> to answer the following question. The columns in the data are:</p>
+<ul>
+<li>x1: a feature that is strongly associated with the binary target</li>
+<li>x2: a feature that are randomly generated numbers</li>
+<li>y: binary target outcome</li>
+</ul>
+<p>Execute the Python program. The mutual information between x1 and y is <select name='q7_1' class='blank-select'><option value='0.64'>0.64</option><option value='0.00'>0.00</option><option value='0.55'>0.55</option></select>. The mutual information between x2 and y is <select name='q7_2' class='blank-select'><option value='0.00'>0.00</option><option value='0.64'>0.64</option><option value='0.55'>0.55</option></select>.</p>
+<p>We will now manually calculate a <strong>simplified </strong>version of mutual information between x1 and y.&nbsp;</p>
+<p>Step 1: Bin x1 using a single cut point, which is set at the average of x1 (i.e., 10.58).</p>
+<p>Step 2: Create a cross-tabulation of counts between the bin of x1 and the target outcome</p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 143.333px;" border="1">
+<tbody>
+<tr>
+<td width="115">&nbsp;</td>
+<td style="text-align: center;" width="115">y=0</td>
+<td style="text-align: center;" width="115">y=1</td>
+<td style="text-align: center;" width="115">Grand Total</td>
+</tr>
+<tr>
+<td>x1_bin1</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr>
+<td>x1_bin2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">9</td>
+</tr>
+<tr>
+<td>Grand Total</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">19</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Step 3: Convert the cross-tabulation from counts to proportions (scale each cell by the total number of observations).</p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 143.333px;" border="1">
+<tbody>
+<tr>
+<td width="115">&nbsp;</td>
+<td style="text-align: center;" width="115">y=0</td>
+<td style="text-align: center;" width="115">y=1</td>
+<td style="text-align: center;" width="115">Grand Total</td>
+</tr>
+<tr>
+<td>x1_bin1</td>
+<td style="text-align: center;">52.6%</td>
+<td style="text-align: center;">0.0%</td>
+<td style="text-align: center;">52.6%</td>
+</tr>
+<tr>
+<td>x1_bin2</td>
+<td style="text-align: center;">0.0%</td>
+<td style="text-align: center;">47.4%</td>
+<td style="text-align: center;">47.4%</td>
+</tr>
+<tr>
+<td>Grand Total</td>
+<td style="text-align: center;">52.6%</td>
+<td style="text-align: center;">47.4%</td>
+<td style="text-align: center;">100.0%</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>The cross-tabulation of proportions contains several key probabilities:</p>
+<p>1. Joint probability of x1_bin1 and y=0: <select name='q7_3' class='blank-select'><option value='52.6%'>52.6%</option><option value='47.4%'>47.4%</option><option value='0.00%'>0.00%</option></select> = A</p>
+<p>2. Joint probability of x1_bin1 and y=1: <select name='q7_4' class='blank-select'><option value='0.00%'>0.00%</option><option value='52.6%'>52.6%</option><option value='47.4%'>47.4%</option></select> = B</p>
+<p>3. Joint probability of x1_bin2 and y=0: <select name='q7_5' class='blank-select'><option value='0.00%'>0.00%</option><option value='52.6%'>52.6%</option><option value='47.4%'>47.4%</option></select> = C</p>
+<p>4. Joint probability of x1_bin2 and y=1: <select name='q7_6' class='blank-select'><option value='47.4%'>47.4%</option><option value='52.6%'>52.6%</option><option value='0.00%'>0.00%</option></select> = D</p>
+<p>5. Marginal probability of x1_bin1: <select name='q7_7' class='blank-select'><option value='52.6%'>52.6%</option><option value='47.4%'>47.4%</option><option value='0.00%'>0.00%</option></select> = E</p>
+<p>6. Marginal probability of x1_bin2: <select name='q7_8' class='blank-select'><option value='47.4%'>47.4%</option><option value='52.6%'>52.6%</option><option value='0.00%'>0.00%</option></select> = F</p>
+<p>7. Marginal probability of y=0: <select name='q7_9' class='blank-select'><option value='52.6%'>52.6%</option><option value='47.4%'>47.4%</option><option value='0.00%'>0.00%</option></select> = G</p>
+<p>8. Marginal probability of y=1: <select name='q7_10' class='blank-select'><option value='47.4%'>47.4%</option><option value='52.6%'>52.6%</option><option value='0.00%'>0.00%</option></select> = H</p>
+<p>&nbsp;</p>
+<p>For each joint probability (there are four), calculate the following terms:</p>
+<p>1. <strong>Independent </strong>joint probability (or product of the marginal probabilities)</p>
+<p>2. Log (base e) of the ratio between the <strong>actual </strong>joint probability and <strong>independent </strong>joint probability. If the actual joint probability is 0.00%, then set the log ratio to zero.</p>
+<p>3. Product of the actual joint probability and the log ratio</p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 143.333px;" border="1">
+<tbody>
+<tr style="height: 28.6667px;">
+<td style="width: 18.9509%; height: 28.6667px;">Term</td>
+<td style="width: 15.3123%; height: 28.6667px; text-align: center;">Actual Joint Probability</td>
+<td style="width: 18.1056%; height: 28.6667px; text-align: center;">Indep Joint Probability</td>
+<td style="width: 18.8663%; height: 28.6667px; text-align: center;">Log Ratio</td>
+<td style="width: 28.7648%; text-align: center;">Actual Joint Probability * Log Ratio</td>
+</tr>
+<tr style="height: 28.6667px;">
+<td style="width: 18.9509%; height: 28.6667px;">Joint probability of x1_bin1 and y=0</td>
+<td style="width: 15.3123%; height: 28.6667px; text-align: center;">A</td>
+<td style="width: 18.1056%; height: 28.6667px; text-align: center;">E * G</td>
+<td style="width: 18.8663%; height: 28.6667px; text-align: center;">log(A / (E*G))</td>
+<td style="width: 28.7648%; text-align: center;">A * log(A / (E*G))</td>
+</tr>
+<tr style="height: 28.6667px;">
+<td style="width: 18.9509%; height: 28.6667px;">Joint probability of x1_bin1 and y=1</td>
+<td style="width: 15.3123%; height: 28.6667px; text-align: center;">B</td>
+<td style="width: 18.1056%; height: 28.6667px; text-align: center;">E * H</td>
+<td style="width: 18.8663%; height: 28.6667px; text-align: center;">log(B / (E*H))</td>
+<td style="width: 28.7648%; text-align: center;">B * log(B / (E*H))</td>
+</tr>
+<tr style="height: 28.6667px;">
+<td style="width: 18.9509%; height: 28.6667px;">Joint probability of x1_bin2 and y=0</td>
+<td style="width: 15.3123%; height: 28.6667px; text-align: center;">C</td>
+<td style="width: 18.1056%; height: 28.6667px; text-align: center;">F * G</td>
+<td style="width: 18.8663%; height: 28.6667px; text-align: center;">log(C / (F*G))</td>
+<td style="width: 28.7648%; text-align: center;">C * log(C / (F*G))</td>
+</tr>
+<tr style="height: 28.6667px;">
+<td style="width: 18.9509%; height: 28.6667px;">Joint probability of x1_bin2 and y=1</td>
+<td style="width: 15.3123%; height: 28.6667px; text-align: center;">D</td>
+<td style="width: 18.1056%; height: 28.6667px; text-align: center;">F * H</td>
+<td style="width: 18.8663%; height: 28.6667px; text-align: center;">log(D / (F*H))</td>
+<td style="width: 28.7648%; text-align: center;">D * log(D / (F*H))</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>The sum of the last column is the mutual information between x1 and y. The manual-calculation of mutual information is<select name='q7_11' class='blank-select'><option value='0.69'>0.69</option><option value='0.62'>0.62</option><option value='0.64'>0.64</option></select>.</p>
+<p>Mutual information measures the divergence between the <strong>observed </strong>joint distribution and the <strong>expected </strong>joint distribution under independence (i.e., the product of the marginal probabilities). When a feature and a target are independent, each log ratio is <select name='q7_12' class='blank-select'><option value='near zero'>near zero</option><option value='greater than zero'>greater than zero</option><option value='less than zero'>less than zero</option></select> and the mutual information is <select name='q7_13' class='blank-select'><option value='also near zero'>also near zero</option><option value='greater than zero'>greater than zero</option><option value='less than zero'>less than zero</option></select>. When the target depends on the feature, the individual log ratios can be positive or negative, but their weighted sum <select name='q7_14' class='blank-select'><option value='is positive'>is positive</option><option value='is negative'>is negative</option><option value='is near zero'>is near zero</option></select>, reflecting the strength of the dependency. This formulation emphasizes that mutual information is a weighted average of these log ratios, measuring how much the actual joint distribution deviates from independence.</p>
+<p>&nbsp;</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>Using the simplified version of mutual information, the mutual information between x2 and y is <select name='q8_1' class='blank-select'><option value='0.00'>0.00</option><option value='-0.1'>-0.1</option><option value='0.1'>0.1</option></select>. Set a single cut point for the 2 bins at the average of x2.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>9. <p>A key parameter in SelectKBest is "k" (the number of top features). If your train data has far more rows than columns (n &gt; p), you would generally consider a <select name='q9_1' class='blank-select'><option value='large'>large</option><option value='very small'>very small</option></select> number for "k". If your train data has far fewer rows than columns (n &lt; p), you would generally consider a <select name='q9_2' class='blank-select'><option value='small'>small</option><option value='very large'>very large</option></select> number for "k". A model with <select name='q9_3' class='blank-select'><option value='a few'>a few</option><option value='many'>many</option></select> selected features is generally easier to explain than a model with <select name='q9_4' class='blank-select'><option value='many'>many</option><option value='a few'>a few</option></select> selected features.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>10. <p>SelectFromModel is an embedded method that selects features based on the <select name='q10_1' class='blank-select'><option value='feature importance weights'>feature importance weights</option><option value='redundancy'>redundancy</option><option value='outliers'>outliers</option></select> provided by an estimator (e.g., Lasso or Random Forest). For tree-based estimators like Random Forest, setting the tree depth <select name='q10_2' class='blank-select'><option value='greater than one'>greater than one</option><option value='less than 1'>less than 1</option><option value='equal to 1'>equal to 1</option></select> allows them to capture interaction effects between features. However, the method assumes that features deemed important by the selection estimator are also important for the final estimator, such as AutoGluon, which may not always be the case. Another limitation of SelectFromModel is it depends on the selection estimator's feature importance method, which may not always be reliable (especially if the feature importance method uses <select name='q10_3' class='blank-select'><option value='in-sample prediction errors'>in-sample prediction errors</option><option value='test set prediction errors'>test set prediction errors</option><option value='LOOCV prediction errors'>LOOCV prediction errors</option></select> rather than validation prediction errors).</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>11. <p>SequentialFeatureSelector is a wrapper method that selects features using a <select name='q11_1' class='blank-select'><option value='stepwise algorithm'>stepwise algorithm</option><option value='recursive algorithm'>recursive algorithm</option><option value='univariate algorithm'>univariate algorithm</option></select>. By default, it performs <select name='q11_2' class='blank-select'><option value='forward selection'>forward selection</option><option value='backward selection'>backward selection</option><option value='bidirectional selection'>bidirectional selection</option></select> — starting with no features and iteratively adding the one that most improves the model's performance. Its computational cost is <select name='q11_3' class='blank-select'><option value='very high'>very high</option><option value='very low'>very low</option></select> compared to filter-based or embedded methods because it evaluates many candidate feature subsets and, when using cross-validation, repeatedly trains the model across multiple splits. This exhaustive search process can lead to better feature combinations but demands significantly <select name='q11_4' class='blank-select'><option value='more computation'>more computation</option><option value='less computation'>less computation</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>12. <p>MRMR (Minimum Redundancy Maximum Relevance) is a filter-based method that selects features by balancing two key criteria: maximum relevance and minimum redundancy. The maximum relevance criterion is typically quantified using <select name='q12_1' class='blank-select'><option value='mutual information'>mutual information</option><option value='variance'>variance</option><option value='p-value'>p-value</option></select> between a feature and the target outcome. In contrast, the minimum redundancy criterion evaluates the similarity among features by computing <select name='q12_2' class='blank-select'><option value='pairwise mutual information'>pairwise mutual information</option><option value='Euclidean distance'>Euclidean distance</option><option value='standard deviation'>standard deviation</option></select> between two features. By taking the ratio or difference between the two criteria, MRMR aims to select a subset of features that are highly <select name='q12_3' class='blank-select'><option value='predictive'>predictive</option><option value='redundant'>redundant</option><option value='insignificant'>insignificant</option></select> to the target outcome while exhibiting low <select name='q12_4' class='blank-select'><option value='redundancy'>redundancy</option><option value='noise'>noise</option><option value='variance'>variance</option></select> among themselves.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>13. <p>A simplified description of the MRMR feature selection process is as follows:</p>
+<p>Step 1. Initial Relevance Calculation: Compute the <select name='q13_1' class='blank-select'><option value='mutual information'>mutual information</option><option value='correlation coefficient'>correlation coefficient</option><option value='Euclidean distance'>Euclidean distance</option></select> between each feature and the target outcome (similar to how SelectKBest ranks features using MI).</p>
+<p>Step 2. Select the Best Feature: Choose the feature with the <select name='q13_2' class='blank-select'><option value='highest'>highest</option><option value='average'>average</option><option value='median'>median</option></select> MI with the target; this becomes the first feature in your <strong>selected subset</strong>.</p>
+<p>Step 3. Evaluate Redundancy for Remaining Features: For each <select name='q13_3' class='blank-select'><option value='non-selected feature'>non-selected feature</option><option value='selected feature'>selected feature</option><option value='irrelevant feature'>irrelevant feature</option></select>, compute its pairwise MI with each feature already selected.</p>
+<p>Step 4. Compute the Information Score: For each remaining feature, combine its relevance (MI with the target) and its redundancy (typically the average MI with the selected features) into a single score. This can be done by taking either the difference (relevance minus redundancy, known as <select name='q13_4' class='blank-select'><option value='MID'>MID</option><option value='MIA'>MIA</option><option value='MIQ'>MIQ</option></select>) or the ratio (relevance divided by redundancy, known as <select name='q13_5' class='blank-select'><option value='MIQ'>MIQ</option><option value='MID'>MID</option><option value='MIA'>MIA</option></select>).</p>
+<p>Step 5. Select the Next Feature: Add the feature with the highest score to <strong>the selected subset</strong>.</p>
+<p>Step 6. Iterate: Repeat steps 3–5. As the selected subset grows, calculate the average pairwise MI between each remaining feature and all features in the selected set.</p>
+<p>Step 7. Stop When Appropriate: Continue the process until a stopping criterion is met—such as when the highest score among remaining features falls below a predefined threshold or a desired number of features has been selected.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

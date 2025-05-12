@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 01-03: AutoGluon</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 01-03: AutoGluon</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>A key benefit of using AutoGluon-<span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">TabularPredictor is its ability to handle <select name='q1_1' class='blank-select'><option value='raw'>raw</option><option value='clean'>clean</option><option value='preprocessed'>preprocessed</option></select> tabular data without generating fatal error messages. AutoGluon processes the data in stages. One of the stages includes <select name='q1_2' class='blank-select'><option value='converting features to the appropriate data types'>converting features to the appropriate data types</option><option value='removing observations with outliers or missing values'>removing observations with outliers or missing values</option><option value='oversampling observations with the target event'>oversampling observations with the target event</option></select>.</span></p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>In scikit-learn, OneHotEncoder converts a categorical feature into <select name='q2_1' class='blank-select'><option value='K binary features'>K binary features</option><option value='a single binary feature'>a single binary feature</option><option value='K continuous features'>K continuous features</option></select>, while OrdinalEncoder maps each category to <select name='q2_2' class='blank-select'><option value='a unique integer'>a unique integer</option><option value='K binary features'>K binary features</option><option value='a categorical string'>a categorical string</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Suppose you fit a logistic regression (using scikit-learn) with a categorical feature called US_State. The training data contains two unique values for US_State: CA and WA. If the test data contains a new unique value (like TX), using the predict method on the test data would <select name='q3_1' class='blank-select'><option value='return an error message'>return an error message</option><option value='return a prediction between 0 and 1'>return a prediction between 0 and 1</option><option value='silently ignore the new category'>silently ignore the new category</option></select>. Assume the categorical feature was encoded with OneHotEncoder with default parameter settings.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>AutoGluon-Tabular automatically detects categorical features from raw data and applies specific preprocessing steps. It assigns an "Unknown" category for <select name='q4_1' class='blank-select'><option value='missing values'>missing values</option><option value='noisy data'>noisy data</option><option value='rare categories'>rare categories</option></select> and unseen categories at test time, and consolidates <select name='q4_2' class='blank-select'><option value='rare'>rare</option><option value='common'>common</option><option value='predictive'>predictive</option></select> categories into an "Other" category when a feature has high cardinality (typically 100+ levels). An example of a categorical feature with high cardinality is <select name='q4_3' class='blank-select'><option value='zip code'>zip code</option><option value='income'>income</option><option value='gender'>gender</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>Using the "medium-quality" presets in AutoGluon-Tabular, AutoGluon trains several base learners including <select name='q5_1' class='blank-select'><option value='boosted trees'>boosted trees</option><option value='support vector machines'>support vector machines</option><option value='logistic regression'>logistic regression</option></select>, random forest, and neural networks. The <select name='q5_2' class='blank-select'><option value='out-of-fold'>out-of-fold</option><option value='in-sample'>in-sample</option><option value='test-set'>test-set</option></select> predictions from each base learner is then used to train a stacked learner that weights the predictions from each base learner.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>6. <p>AutoGluon-Tabular creates out-of-fold predictions by employing a repeated k‑fold bagging process that proceeds through the following steps.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q6'> <p>Out‑of‑Fold Predictions: Each trained model then produces predictions on the held‑out fold, generating out‑of‑fold (OOF) predictions.</p></li>
+<li><input type='radio' name='q6'> <p>Multiple Rounds: The entire k‑fold process is repeated n times with different random splits, so that every example receives multiple OOF predictions.</p></li>
+<li><input type='radio' name='q6'> <p>Model Training per Fold: For each fold, a copy of each base learner is trained on the remaining k‑1 folds.</p></li>
+<li><input type='radio' name='q6'> <p>Averaging: The OOF predictions for each base learner are averaged across the n rounds to reduce variance and overfitting.</p></li>
+<li><input type='radio' name='q6'> <p>Data Splitting: The training data is randomly partitioned into k disjoint folds.</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>7. <p>Pipeline is a scikit-learn class that lets you <select name='q7_1' class='blank-select'><option value='chain multiple steps'>chain multiple steps</option><option value='execute steps in parallel'>execute steps in parallel</option><option value='handle steps independently'>handle steps independently</option></select> (like data transformations and a final estimator) into one single object. It ensures that every step in your workflow is executed in order, so the same transformations are applied <select name='q7_2' class='blank-select'><option value='during training and testing'>during training and testing</option><option value='only during model fitting'>only during model fitting</option><option value='solely during prediction'>solely during prediction</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>Execute the following two lines of Python code in VS Code:</p>
+<hr>
+<pre><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">from</span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;"> autogluon.tabular </span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">import</span><span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;"> TabularPredictor</span></pre>
+<div>
+<pre><span>TabularPredictor.fit</span><span>?<br></span></pre>
+<hr>
+<p>The last line should display the help page for the "fit" method. Using the documentation for the method, fill in the answers.</p>
+<p>&nbsp;</p>
+<p>If you want a model with low prediction error, set the parameter <select name='q8_1' class='blank-select'><option value='presets'>presets</option><option value='fit_weighted_ensemble'>fit_weighted_ensemble</option><option value='dynamic_stacking'>dynamic_stacking</option></select> to <select name='q8_2' class='blank-select'><option value='best_quality'>best_quality</option><option value='medium_quality'>medium_quality</option><option value='interpretable'>interpretable</option></select> and the parameter <select name='q8_3' class='blank-select'><option value='time_limit'>time_limit</option><option value='zeroshot'>zeroshot</option><option value='infer_limit_batch_size'>infer_limit_batch_size</option></select> to <select name='q8_4' class='blank-select'><option value='43_200'>43_200</option><option value='180'>180</option><option value='2'>2</option></select>.</p>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>9. <p>In "Lab 01.html", Table 7 (Autogluon Leaderboard) shows 10 base models and 1 weighted ensemble. The key difference between "<span>RandomForestEntr</span>" and "<span>RandomForestGini</span>" is that the split criterion for "<span>RandomForestEntr</span>" minimizes <select name='q9_1' class='blank-select'><option value='entropy'>entropy</option><option value='mean squared error'>mean squared error</option><option value='log likelihood'>log likelihood</option></select> while "<span>RandomForestGini" minimizes <select name='q9_2' class='blank-select'><option value='gini impurity'>gini impurity</option><option value='log loss'>log loss</option><option value='deviance'>deviance</option></select></span>. Based on the test set performance of the two models, it appears that the choice between entropy and gini has a <select name='q9_3' class='blank-select'><option value='minor'>minor</option><option value='significant'>significant</option><option value='major'>major</option></select> impact on model performance.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>10. <p>In "Lab 01.html", Table 7 (Autogluon Leaderboard) shows 10 base models and 1 weighted ensemble. Suppose you have a new test set with 10 MM observations. The model that would generate the fastest predictions is <select name='q10_1' class='blank-select'><option value='CatBoost'>CatBoost</option><option value='WeightedEnsemble_L2'>WeightedEnsemble_L2</option><option value='NeuralNetFastAI'>NeuralNetFastAI</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>11. <p>According to Table 7 in "Lab 01.html", NeuralNetFastAI took <select name='q11_1' class='blank-select'><option value='more'>more</option><option value='less'>less</option><option value='about the same'>about the same</option></select> time to fit than XGBoost.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>12. <p>The number of models in Table 7 depends on the "presets" and "time_limit" parameters. If the model "<span>LightGBMLarge </span>" is missing from the leaderboard, you could change the <select name='q12_1' class='blank-select'><option value='time_limit'>time_limit</option><option value='presets'>presets</option><option value='holdout_frac'>holdout_frac</option></select> to <select name='q12_2' class='blank-select'><option value='3000'>3000</option><option value='1'>1</option><option value='60'>60</option></select> and refit the models.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

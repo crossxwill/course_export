@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-03: Partial Dependence Plots</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-03: Partial Dependence Plots</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>1. <p>In "train_data", what is the maximum value of "CC_utilization"?</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>To create a PDP, you need to provide a dataset. In the video, we used "train_data" with show_pdp(). What happens to the PDP for "CC_utilization" if "train_data" includes prospects with "CC_utilization" values above 100%?</p>
+<p>&nbsp;</p>
+<p>The partial dependence curve would likely <select name='q2_1' class='blank-select'><option value='flatten out'>flatten out</option><option value='keep going up'>keep going up</option><option value='start falling'>start falling</option></select>.</p>
+<p>&nbsp;</p>
+<p>To check your answer, copy "train_data", add 0.50 to all "CC_utilization" values, and then recreate the PDP for "CC_utilization" without refitting or retraining the model.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>In previous videos, the instructor warned against using the same "train_data" for both training and evaluation, as this double-dipping can lead to overly optimistic metrics due to overfitting.&nbsp;</p>
+<p>&nbsp;</p>
+<p>When generating the PDP for "CC_utilization," the process uses "train_data" <select name='q3_1' class='blank-select'><option value='that excludes'>that excludes</option><option value='that includes'>that includes</option></select> the actual label ("response_flag"). As a result, <select name='q3_2' class='blank-select'><option value='there are minimal concerns'>there are minimal concerns</option><option value='there are strong concerns'>there are strong concerns</option></select> for double-dipping or overfitting when examining the PDP.&nbsp;</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

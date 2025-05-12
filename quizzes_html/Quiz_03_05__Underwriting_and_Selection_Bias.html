@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-05: Underwriting and Selection Bias</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-05: Underwriting and Selection Bias</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>The process of deciding whether to grant credit to an applicant is known as <select name='q1_1' class='blank-select'><option value='underwriting'>underwriting</option><option value='credit scoring'>credit scoring</option><option value='loan origination'>loan origination</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>2. <p>Order the following underwriting steps from first to last.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q2'> <p>Credit evaluation (risk assessment)</p></li>
+<li><input type='radio' name='q2'> <p>Initial screening (basic eligibility like age, compliance checks)</p></li>
+<li><input type='radio' name='q2'> <p>Pricing and terms determination (interest rate, loan amount, loan term)</p></li>
+<li><input type='radio' name='q2'> <p>Data gathering (credit reports, credit scores, annual income)</p></li>
+<li><input type='radio' name='q2'> <p>Credit decision (approve, reject, conditional approval)</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: matching_question</p>
+<p class='prompt'>3. <p>Match the following terms related to the credit application process to their correct descriptions.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q3'> All consumers who initially apply for credit, representing the entire applicant pool</li>
+<li><input type='radio' name='q3'> Applicants who are approved for credit by the underwriting process</li>
+<li><input type='radio' name='q3'> Applicants who are denied credit by the lender; their performance outcome is unknown</li>
+<li><input type='radio' name='q3'> The subset of accepted applicants whose loan performance (good/bad) is observed</li>
+<li><input type='radio' name='q3'> All consumers who initially apply for credit, representing the entire applicant pool</li>
+<li><input type='radio' name='q3'> Applicants who are approved for credit by the underwriting process</li>
+<li><input type='radio' name='q3'> Applicants who are denied credit by the lender; their performance outcome is unknown</li>
+<li><input type='radio' name='q3'> The subset of accepted applicants whose loan performance (good/bad) is observed</li>
+<li><input type='radio' name='q3'> All consumers who initially apply for credit, representing the entire applicant pool</li>
+<li><input type='radio' name='q3'> Applicants who are approved for credit by the underwriting process</li>
+<li><input type='radio' name='q3'> Applicants who are denied credit by the lender; their performance outcome is unknown</li>
+<li><input type='radio' name='q3'> The subset of accepted applicants whose loan performance (good/bad) is observed</li>
+<li><input type='radio' name='q3'> All consumers who initially apply for credit, representing the entire applicant pool</li>
+<li><input type='radio' name='q3'> Applicants who are approved for credit by the underwriting process</li>
+<li><input type='radio' name='q3'> Applicants who are denied credit by the lender; their performance outcome is unknown</li>
+<li><input type='radio' name='q3'> The subset of accepted applicants whose loan performance (good/bad) is observed</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>4. <p>Categorize the following characteristics based on whether they describe the Through-the-Door (TTD) population or the Known Good Bad (KGB) population.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q4'> Represents the full range of credit risk in the applicant pool</li>
+<li><input type='radio' name='q4'> Suffers from selection bias when used alone for model training</li>
+<li><input type='radio' name='q4'> May have many missing target outcomes (labels)</li>
+<li><input type='radio' name='q4'> Includes all applicants who apply for credit</li>
+<li><input type='radio' name='q4'> Contains only applicants who were approved for credit</li>
+<li><input type='radio' name='q4'> Ideally, models should predict risk in this population</li>
+<li><input type='radio' name='q4'> Non-random sample of the relevant population</li>
+<li><input type='radio' name='q4'> Has observed performance data (good/bad outcomes)</li>
+<li><input type='radio' name='q4'> Represents the full range of credit risk in the applicant pool</li>
+<li><input type='radio' name='q4'> Suffers from selection bias when used alone for model training</li>
+<li><input type='radio' name='q4'> May have many missing target outcomes (labels)</li>
+<li><input type='radio' name='q4'> Includes all applicants who apply for credit</li>
+<li><input type='radio' name='q4'> Contains only applicants who were approved for credit</li>
+<li><input type='radio' name='q4'> Ideally, models should predict risk in this population</li>
+<li><input type='radio' name='q4'> Non-random sample of the relevant population</li>
+<li><input type='radio' name='q4'> Has observed performance data (good/bad outcomes)</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>Training a credit risk model using only data from approved applicants (the KGB population) introduces <select name='q5_1' class='blank-select'><option value='selection'>selection</option><option value='measurement'>measurement</option><option value='anchoring'>anchoring</option></select> bias because the performance of rejected applicants is <select name='q5_2' class='blank-select'><option value='unknown'>unknown</option><option value='known'>known</option></select> and <select name='q5_3' class='blank-select'><option value='excluded'>excluded</option><option value='included'>included</option></select> from the training data.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>When a model trained only on KGB data is applied to the full TTD population, it may make poor predictions for the types of applicants it wasn’t trained on (i.e., the rejected applicants). This is partly due to <select name='q6_1' class='blank-select'><option value='extrapolation'>extrapolation</option><option value='interpolation'>interpolation</option><option value='anchor'>anchor</option></select> error, which is particularly pronounced in <select name='q6_2' class='blank-select'><option value='tree-based'>tree-based</option><option value='logistic regression'>logistic regression</option></select> models that struggle to predict outside the range of their training data.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: multiple_answers_question</p>
+<p class='prompt'>7. <p>Based on the simulation results that compare the True Probability of Default (PD) with the Predicted PD from the model trained exclusively on the KGB population (KGB Model), select all statements that accurately describe the behavior of the KGB Model.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q7'> <p>Predicts risk relatively accurately for the approved applicants (Score &gt;= 680)</p></li>
+<li><input type='radio' name='q7'> <p>Dramatically underestimates the true risk for rejected applicants (Score &lt; 680)</p></li>
+<li><input type='radio' name='q7'> <p>Shows a nearly flat prediction line for scores below the 680 threshold, highlighting tree-model extrapolation limitations</p></li>
+<li><input type='radio' name='q7'> <p>Significantly overestimates the true risk for rejected applicants (Score &lt; 680)</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>A KGB model predicts <select name='q8_1' class='blank-select'><option value='P(Default | Approved)'>P(Default | Approved)</option><option value='P(Default | Applied)'>P(Default | Applied)</option></select>, but the desired prediction is <select name='q8_2' class='blank-select'><option value='P(Default | Applied)'>P(Default | Applied)</option><option value='P(Default | Approved)'>P(Default | Approved)</option></select>.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

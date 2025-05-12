@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-07: Bureau Augmentation</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-07: Bureau Augmentation</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>1. <p>Order the steps involved in the Bureau Proxy Augmentation&nbsp;</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q1'> <p>The credit bureau identifies which rejected applicants were granted credit elsewhere during a specified period and determines if they defaulted</p></li>
+<li><input type='radio' name='q1'> <p>Send the list of rejected applicants to a credit bureau (e.g., Experian, TransUnion, Equifax)</p></li>
+<li><input type='radio' name='q1'> <p>The augmented training dataset (KGB + matched rejects) is used to train a new model</p></li>
+<li><input type='radio' name='q1'> <p>Append the default indicator (good/bad) provided by the bureau to the matched rejected applicants</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>2. <p>Categorize the following statements as either a “Pro” or a “Con” of the Bureau Augmentation method</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q2'> Only a subset of the rejected population can be included in the training data</li>
+<li><input type='radio' name='q2'> Applicants with very low credit scores are unlikely to be matched</li>
+<li><input type='radio' name='q2'> Reduces bias compared to using only KGB data</li>
+<li><input type='radio' name='q2'> Provides a true default indicator based on actual credit performance</li>
+<li><input type='radio' name='q2'> Only a subset of the rejected population can be included in the training data</li>
+<li><input type='radio' name='q2'> Applicants with very low credit scores are unlikely to be matched</li>
+<li><input type='radio' name='q2'> Reduces bias compared to using only KGB data</li>
+<li><input type='radio' name='q2'> Provides a true default indicator based on actual credit performance</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>A major drawback of Bureau Augmentation is that it often results in a low hit rate or <select name='q3_1' class='blank-select'><option value='match rate'>match rate</option><option value='approval rate'>approval rate</option><option value='accuracy rate'>accuracy rate</option></select>, meaning only a <select name='q3_2' class='blank-select'><option value='small'>small</option><option value='large'>large</option></select> percentage of rejected applicants get a proxy default indicator.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>4. <p>Rank the following methods (based on the simulation) from best to worst in predicting the risk in the TTD population.</p>
+<p>Hint: There is a known bug in Canvas for ordered items questions. You must interact with the question by clicking and dragging the items below, even if the initial order of the items is correct. Click, drag, order, then re-order until the ranking is correct.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q4'> <p>KGB Model</p></li>
+<li><input type='radio' name='q4'> <p>Bureau Augmentation</p></li>
+<li><input type='radio' name='q4'> <p>Naive Augmentation</p></li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>5. <p>Categorize the following types of rejected applicants according to their likelihood of being successfully matched with a default indicator via Bureau Augmentation</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q5'> Applicants with very low credit scores</li>
+<li><input type='radio' name='q5'> Applicants with scores just below the approval score cutoff</li>
+<li><input type='radio' name='q5'> Applicants with very low credit scores</li>
+<li><input type='radio' name='q5'> Applicants with scores just below the approval score cutoff</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>Selection Bias</p>
+<ul style="list-style-type: disc;">
+<li>KGB population is a non-random sample (bias sample) of the TTD population.</li>
+<li>Models trained only on KGB data may underestimate risk for rejected applicants.</li>
+<li>Tree-based models (like <strong>CatBoost</strong>) can amplify selection bias through poor extrapolation.</li>
+</ul>
+<p>Reject Inference Techniques</p>
+<ul>
+<li>Augmentation incorporates rejected applicants into the training data.</li>
+<li>Naive Augmentation: Simple but substantially overestimates risk. <strong>Do not use.</strong></li>
+<li>Bureau Augmentation: More accurate but may exclude most rejected applicants.</li>
+</ul>
+<p>Select okay: <select name='q6_1' class='blank-select'><option value='OK'>OK</option><option value='Not OK'>Not OK</option></select></p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

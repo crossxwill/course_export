@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-01: Probability Calibration</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-01: Probability Calibration</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>A calibration curve compares <select name='q1_1' class='blank-select'><option value='mean predicted probabilities'>mean predicted probabilities</option><option value='median predicted probabilities'>median predicted probabilities</option><option value='cumulative predicted probabilities'>cumulative predicted probabilities</option></select> to observed frequencies of a binary outcome. Ideally, a calibration curve would be <select name='q1_2' class='blank-select'><option value='a 45-degree line'>a 45-degree line</option><option value='a S-curve'>a S-curve</option><option value='a horizontal line'>a horizontal line</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>A trained model with a very high test set ROC-AUC (&gt; 0.90) <select name='q2_1' class='blank-select'><option value='may not'>may not</option><option value='should'>should</option><option value='is very likely to'>is very likely to</option></select> have well-calibrated predicted probabilities because ROC-AUC measures the model's ability to <select name='q2_2' class='blank-select'><option value='rank-order'>rank-order</option><option value='classify'>classify</option><option value='categorize'>categorize</option></select> observations from least to most likely. The ROC-AUC will <select name='q2_3' class='blank-select'><option value='remain unchanged'>remain unchanged</option><option value='increase'>increase</option><option value='decrease'>decrease</option></select> if you add 999 to each predicted probability.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Suppose you have a model with a test set ROC-AUC of 72% and another test set with 10,000 events and 90,000 non-events. You randomly sample two observations:</p>
+<p>&nbsp;</p>
+<p>Observation A: 1 out of 10,000 events<br>Observation B: 1 out of 90,000 non-events</p>
+<p>&nbsp;</p>
+<p>The probability that observation A's prediction is greater than observation B's prediction is <select name='q3_1' class='blank-select'><option value='72%'>72%</option><option value='10%'>10%</option><option value='11.11%'>11.11%</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Use disjoint data sets to prevent overfitting, data leakage, or "double-dipping". For example, use the <select name='q4_1' class='blank-select'><option value='training set'>training set</option><option value='calibration set'>calibration set</option><option value='test set'>test set</option></select> to train the model, the <select name='q4_2' class='blank-select'><option value='test set'>test set</option><option value='training set'>training set</option><option value='calibration set'>calibration set</option></select> to evaluate the model, the <select name='q4_3' class='blank-select'><option value='calibration set'>calibration set</option><option value='test set'>test set</option><option value='training set'>training set</option></select> to adjust the model, and the <select name='q4_4' class='blank-select'><option value='test set'>test set</option><option value='training set'>training set</option><option value='calibration set'>calibration set</option></select> to evaluate the adjusted model.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>5. <p>Refer to the scikit-learn <a class="inline_disabled" href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noopener noreferrer">documentation</a>. CalibratedClassifierCV supports two regression techniques for probability calibration through the method parameter: "sigmoid" and "isotonic." The sigmoid method, also known as Platt scaling, is most effective when events and non-events are <select name='q5_1' class='blank-select'><option value='well-balanced'>well-balanced</option><option value='highly imbalanced'>highly imbalanced</option><option value='skewed'>skewed</option></select> and/or the calibration set is <select name='q5_2' class='blank-select'><option value='small'>small</option><option value='large'>large</option><option value='plentiful'>plentiful</option></select>. In contrast, isotonic regression is more flexible but requires <select name='q5_3' class='blank-select'><option value='more data'>more data</option><option value='less data'>less data</option><option value='minimal data'>minimal data</option></select> to prevent overfitting.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>6. <p>Which evaluation metrics encourage models to generate well-calibrated predicted probabilities?</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q6'> F1 Score</li>
+<li><input type='radio' name='q6'> ROC-AUC</li>
+<li><input type='radio' name='q6'> Accuracy</li>
+<li><input type='radio' name='q6'> Precision</li>
+<li><input type='radio' name='q6'> Log likelihood</li>
+<li><input type='radio' name='q6'> Log Loss</li>
+<li><input type='radio' name='q6'> Gini Impurity</li>
+<li><input type='radio' name='q6'> Recall</li>
+<li><input type='radio' name='q6'> F1 Score</li>
+<li><input type='radio' name='q6'> ROC-AUC</li>
+<li><input type='radio' name='q6'> Accuracy</li>
+<li><input type='radio' name='q6'> Precision</li>
+<li><input type='radio' name='q6'> Log likelihood</li>
+<li><input type='radio' name='q6'> Log Loss</li>
+<li><input type='radio' name='q6'> Gini Impurity</li>
+<li><input type='radio' name='q6'> Recall</li>
+</ul>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

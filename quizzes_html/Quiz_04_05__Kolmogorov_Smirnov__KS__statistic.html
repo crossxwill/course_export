@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-05: Kolmogorov-Smirnov (KS) statistic</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-05: Kolmogorov-Smirnov (KS) statistic</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>The primary purpose of using the test set in this analysis is to measure the <select name='q1_1' class='blank-select'><option value='out-of-sample'>out-of-sample</option><option value='in-sample'>in-sample</option><option value='training'>training</option></select> performance of the through-the-door model.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <div>
+<div><span>The AUC calculation on the test set used the roc_auc_score function from the sklearn library, specifically chosen for its ability to incorporate <select name='q2_1' class='blank-select'><option value='sample weights'>sample weights</option><option value='class weights'>class weights</option><option value='inferred target outcomes'>inferred target outcomes</option></select>.</span></div>
+</div></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Before converting probabilities to scores, the function ensures no probability is exactly 0 or 1, as this would cause the <select name='q3_1' class='blank-select'><option value='log'>log</option><option value='exponential'>exponential</option><option value='sum'>sum</option></select> operation needed for log odds calculation to fail.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>The KS statistic is calculated as the <select name='q4_1' class='blank-select'><option value='max'>max</option><option value='min'>min</option><option value='average'>average</option></select> absolute difference between the cumulative bad rate and the cumulative good rate across score bins</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 03-06: Naive Augmentation</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 03-06: Naive Augmentation</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>Underwriting introduces <select name='q1_1' class='blank-select'><option value='selection bias'>selection bias</option><option value='Dunning-Kruger Effect'>Dunning-Kruger Effect</option><option value='confirmation bias'>confirmation bias</option></select> into the training data because the Known Good Bad (KGB) population excludes rejected applicants, making the training sample non-representative of all applicants.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>In the context of addressing selection bias in credit risk modeling, the general process of incorporating rejected applicants (often with inferred outcomes) into the training data is known as reject inference or <select name='q2_1' class='blank-select'><option value='augmentation'>augmentation</option><option value='imputation'>imputation</option><option value='calibration'>calibration</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>The specific reject inference technique known as “Naive Augmentation” makes the simplifying assumption that all rejected applicants would have <select name='q3_1' class='blank-select'><option value='defaulted'>defaulted</option><option value='not defaulted'>not defaulted</option><option value='partially defaulted'>partially defaulted</option></select> if they had been granted credit</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>The KGB model <select name='q4_1' class='blank-select'><option value='underestimates'>underestimates</option><option value='overestimates'>overestimates</option></select> risk (in the rejected population), while Naive Augmentation <select name='q4_2' class='blank-select'><option value='overestimates'>overestimates</option><option value='underestimates'>underestimates</option></select> risk (in the rejected population).</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>5. <p>Categorize the following statements about the Naive Augmentation technique as True or False</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q5'> Effectively corrects selection bias without introducing new bias.</li>
+<li><input type='radio' name='q5'> Data-driven and realistic approach.</li>
+<li><input type='radio' name='q5'> Commonly used by lenders in practice for building models.</li>
+<li><input type='radio' name='q5'> Tends to significantly overestimate default risk for rejects.</li>
+<li><input type='radio' name='q5'> Assumes rejected applicants have a 0% chance of defaulting.</li>
+<li><input type='radio' name='q5'> Incorporates data from rejected applicants into the training set.</li>
+<li><input type='radio' name='q5'> Effectively corrects selection bias without introducing new bias.</li>
+<li><input type='radio' name='q5'> Data-driven and realistic approach.</li>
+<li><input type='radio' name='q5'> Commonly used by lenders in practice for building models.</li>
+<li><input type='radio' name='q5'> Tends to significantly overestimate default risk for rejects.</li>
+<li><input type='radio' name='q5'> Assumes rejected applicants have a 0% chance of defaulting.</li>
+<li><input type='radio' name='q5'> Incorporates data from rejected applicants into the training set.</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: ordering_question</p>
+<p class='prompt'>6. <p>Place the following steps for creating and training a model using the Naive Augmentation method, as described in the lecture, in the correct sequence</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q6'> <p>Train a credit risk model (e.g., CatBoost) using the combined (augmented) dataset</p></li>
+<li><input type='radio' name='q6'> <p>Identify the rejected applicants within the pool of all applicants (TTD population)</p></li>
+<li><input type='radio' name='q6'> <p>Append this modified rejected applicant data to the original KGB (approved) applicant data</p></li>
+<li><input type='radio' name='q6'> <p>Assign a default indicator of 1 to all applicants identified as rejects</p></li>
+</ul>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

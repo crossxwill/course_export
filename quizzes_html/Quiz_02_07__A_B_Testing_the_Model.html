@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 02-07: A/B Testing the Model</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 02-07: A/B Testing the Model</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>In the lab, there were <select name='q1_1' class='blank-select'><option value='96,889'>96,889</option><option value='1,000'>1,000</option><option value='4,338'>4,338</option></select> prospects in campaign 3. However, we sent a direct mail offer to only <select name='q1_2' class='blank-select'><option value='1,000'>1,000</option><option value='96,889'>96,889</option><option value='4,338'>4,338</option></select> prospects in the control group and <select name='q1_3' class='blank-select'><option value='4,338'>4,338</option><option value='96,889'>96,889</option><option value='1,000'>1,000</option></select> prospects in the treatment group.&nbsp;</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>In campaign 3, the response rate from the control group was much lower than the response rate from the treatment group. The lift of the treatment group was <select name='q2_1' class='blank-select'><option value='7.64'>7.64</option><option value='1.70'>1.70</option><option value='33.16'>33.16</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>Assume that the baseline response rate is representative of the overall population, the gain of the treatment group is <select name='q3_1' class='blank-select'><option value='between 29% and 35%'>between 29% and 35%</option><option value='less than 29%'>less than 29%</option><option value='greater than 35%'>greater than 35%</option></select>. If the lender wants to increase the gain, we would need to <select name='q3_2' class='blank-select'><option value='lower'>lower</option><option value='increase'>increase</option></select> the decision threshold.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Suppose we had a time machine and traveled backwards in time. You tell your past self that the decision threshold of 16.75% was set too high.</p>
+<p>Rather than optimizing for the F1-score, you examine Table 9 and choose a decision threshold with a gain of 53.95%. The new decision threshold would be <select name='q4_1' class='blank-select'><option value='0.052727'>0.052727</option><option value='0.99936'>0.99936</option><option value='0.032305'>0.032305</option></select>.</p>
+<p>Change the decision threshold with the <span style="color: var(--ic-brand-font-color-dark); font-family: inherit; font-size: 1rem;">set_decision_threshold() method. Then re-generate Table 13.</span></p>
+<p>Using the re-generated Table 13:</p>
+<p>The size of the treatment group would be <select name='q4_2' class='blank-select'><option value='18,924'>18,924</option><option value='17,924'>17,924</option><option value='16,924'>16,924</option></select>.</p>
+<p>The response rate of the treatment group would be <select name='q4_3' class='blank-select'><option value='15.49%'>15.49%</option><option value='16.49%'>16.49%</option><option value='13.49%'>13.49%</option></select>.</p>
+<p>The lift of the treatment group would be <select name='q4_4' class='blank-select'><option value='3.16'>3.16</option><option value='4.16'>4.16</option><option value='7.16'>7.16</option></select>.</p>
+<p>The gain of the treatment group would be <select name='q4_5' class='blank-select'><option value='between 53% and 62%'>between 53% and 62%</option><option value='less than 53%'>less than 53%</option><option value='greater than 62%'>greater than 62%</option></select>.</p>
+<p>The ROI of the treatment group would be <select name='q4_6' class='blank-select'><option value='40.67%'>40.67%</option><option value='45.67%'>45.67%</option><option value='35.67%'>35.67%</option></select>.</p>
+<p>Based on this example, it appears that choosing a decision threshold that optimizes F1-score would <select name='q4_7' class='blank-select'><option value='leave money on the table'>leave money on the table</option><option value='maximize ROI'>maximize ROI</option><option value='minimize ROI'>minimize ROI</option></select>.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

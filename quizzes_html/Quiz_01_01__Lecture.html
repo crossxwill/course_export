@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 01-01: Lecture</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 01-01: Lecture</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: categorization_question</p>
+<p class='prompt'>1. <p>Categorize each of the following interpretable machine learning methods into one of three types.</p></p>
+<ul class='choices'>
+<li><input type='radio' name='q1'> Permutation Feature Importance</li>
+<li><input type='radio' name='q1'> Accumulated Local Effects (ALE) Plots</li>
+<li><input type='radio' name='q1'> SHAP Values</li>
+<li><input type='radio' name='q1'> SHAP Dependence Plots</li>
+<li><input type='radio' name='q1'> Partial Dependence Plots (PDP)</li>
+<li><input type='radio' name='q1'> Aggregate SHAP Values</li>
+<li><input type='radio' name='q1'> Counterfactuals</li>
+<li><input type='radio' name='q1'> Permutation Feature Importance</li>
+<li><input type='radio' name='q1'> Accumulated Local Effects (ALE) Plots</li>
+<li><input type='radio' name='q1'> SHAP Values</li>
+<li><input type='radio' name='q1'> SHAP Dependence Plots</li>
+<li><input type='radio' name='q1'> Partial Dependence Plots (PDP)</li>
+<li><input type='radio' name='q1'> Aggregate SHAP Values</li>
+<li><input type='radio' name='q1'> Counterfactuals</li>
+<li><input type='radio' name='q1'> Permutation Feature Importance</li>
+<li><input type='radio' name='q1'> Accumulated Local Effects (ALE) Plots</li>
+<li><input type='radio' name='q1'> SHAP Values</li>
+<li><input type='radio' name='q1'> SHAP Dependence Plots</li>
+<li><input type='radio' name='q1'> Partial Dependence Plots (PDP)</li>
+<li><input type='radio' name='q1'> Aggregate SHAP Values</li>
+<li><input type='radio' name='q1'> Counterfactuals</li>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>A retail bank primarily serves <select name='q2_1' class='blank-select'><option value='consumers'>consumers</option><option value='other banks'>other banks</option><option value='large corporations'>large corporations</option></select>, <select name='q2_2' class='blank-select'><option value='households'>households</option><option value='private equity companies'>private equity companies</option><option value='hedge funds'>hedge funds</option></select>, and <select name='q2_3' class='blank-select'><option value='small businesses'>small businesses</option><option value='trust funds'>trust funds</option><option value='venture capital companies'>venture capital companies</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>For a retail bank, the provision for loan losses is a(n) <select name='q3_1' class='blank-select'><option value='expense'>expense</option><option value='revenue'>revenue</option></select> line for <select name='q3_2' class='blank-select'><option value='expected credit losses'>expected credit losses</option><option value='unexpected credit losses'>unexpected credit losses</option><option value='trading losses'>trading losses</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>4. <p>You have a checking account at Wells Fargo. The balance on the checking account is $300,000. Assuming you have no other deposit accounts at Wells Fargo, how much are your *uninsured* deposits at this bank?</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>5. <p>You have a checking account at Wells Fargo. The balance on the checking account is $300,000. Assuming you have no other deposit accounts at Wells Fargo, how much are your *insured* deposits at this bank?</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>6. <p>When you apply for a credit card, and the Bank requests a credit report from TransUnion, the request is considered a <select name='q6_1' class='blank-select'><option value='hard inquiry'>hard inquiry</option><option value='soft inquiry'>soft inquiry</option></select> and could <select name='q6_2' class='blank-select'><option value='hurt'>hurt</option><option value='help'>help</option></select> your credit score.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>7. <p>Provide a valid credit score from FICO or VantageScore. Your answer must be a positive integer.</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p>If a credit card application is declined, the Bank <select name='q8_1' class='blank-select'><option value='is obligated to'>is obligated to</option><option value='may choose to'>may choose to</option><option value='should not'>should not</option></select> provide reasons to the applicant.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

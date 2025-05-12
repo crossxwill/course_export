@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-06: Evaluating Score Thresholds</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-06: Evaluating Score Thresholds</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>Suppose we fit an AutoGluon model with sample weights. The weights <select name='q1_1' class='blank-select'><option value='do not'>do not</option><option value='do'>do</option></select> need to be present when we use the predict or predit_proba method to generate predictions.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>When the lender receives a new loan application (outside the historical data), we <select name='q2_1' class='blank-select'><option value='do not'>do not</option><option value='do'>do</option></select> need to use the reject inference model to generate sample weights.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>When simulating a production environment using the test data, techniques like reject inference, cloning, and sample <select name='q3_1' class='blank-select'><option value='weights'>weights</option><option value='thresholds'>thresholds</option><option value='scores'>scores</option></select> were intentionally omitted because the model, not historical data, would be making the accept/reject decision.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Based on Table 12 in "Lab 02.html", the score threshold of 767 would approve <select name='q4_1' class='blank-select'><option value='fewer'>fewer</option><option value='more'>more</option></select> applicants than the historical loan approval process.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

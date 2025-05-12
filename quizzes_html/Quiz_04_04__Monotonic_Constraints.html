@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-04: Monotonic Constraints</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-04: Monotonic Constraints</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>To ensure models like LightGBM and CatBoost were easier to explain and control when applying monotonic constraints, the lecturer configured them to use <select name='q1_1' class='blank-select'><option value='shallow'>shallow</option><option value='deep'>deep</option><option value='complex'>complex</option></select> trees, specifically setting hyperparameters like <select name='q1_2' class='blank-select'><option value='num_leaves=4'>num_leaves=4</option><option value='num_leaves=8'>num_leaves=8</option><option value='num_leaves=16'>num_leaves=16</option></select> or <select name='q1_3' class='blank-select'><option value='depth=2'>depth=2</option><option value='depth=3'>depth=3</option><option value='depth=4'>depth=4</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>While Partial Dependence Plots (PDP) show the <strong>average</strong> relationship (red line) between a feature and predictions, <select name='q2_1' class='blank-select'><option value='ICE'>ICE</option><option value='AUC'>AUC</option><option value='Scatter'>Scatter</option></select> plots (represented by blue lines) reveal the <strong>individual</strong> relationship. These plots can highlight violations of monotonicity, where a feature’s effect isn’t consistently increasing or decreasing across its range for a specific observation.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>To enforce specific directional relationships between features and the model’s prediction (e.g., probability of default), monotonic constraints are applied. When configuring constraints for models like CatBoost or LightGBM within AutoGluon, a feature expected to have a consistently decreasing relationship with the prediction (e.g., higher credit score leading to lower default risk) is assigned a value of <select name='q3_1' class='blank-select'><option value='-1'>-1</option><option value='1'>1</option><option value='0'>0</option></select> in the constraints dictionary or list.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>Applying monotonic constraints can result in a slight decrease in metrics like AUC because the constraints act as a form of <select name='q4_1' class='blank-select'><option value='regularization'>regularization</option><option value='global minimization'>global minimization</option><option value='feature scaling'>feature scaling</option></select>, preventing the model from perfectly fitting potentially noisy or non-monotonic patterns in the training data that might represent overfitting.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 01-02: Lab</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 01-02: Lab</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>1. <div>
+<div><strong>Refer to Table 5: Campaign History.</strong></div>
+</div>
+<p>In campaign 1, what percentage of prospects were sent direct mail?</p>
+<p>Express solution in percent form (e.g., 5.4 means 5.4%).</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>2. <div><strong>Refer to Table 5: Campaign History.</strong></div>
+<p>In campaign 1, what was the response rate among prospects who were sent direct mail?</p>
+<div id="" role="region">
+<div id="question_2674199">
+<div id="question_new_question_text">
+<p>Express solution in percent form (e.g., 5.4 means 5.4%).</p>
+</div>
+</div>
+</div></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>3. <p><strong>Refer to Table 5: Campaign History.</strong></p>
+<p>Suppose the average cost of sending direct mail is $7.00 per prospect. What was the total cost of campaign 1?</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>4. <p><strong>Refer to Table 5: Campaign History.</strong></p>
+<p>Suppose the average revenue from a response is $100 per client. What was the total revenue of campaign 1?</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>5. <p><strong>Refer to Table 5: Campaign History.</strong></p>
+<p>What was the ROI of campaign 1?</p>
+<p>The equation for ROI is in the lab notebook. Express solution in percent form (e.g., 5 means 5%).</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: numerical_question</p>
+<p class='prompt'>6. <p><strong>Refer to Table 5: Campaign History.</strong></p>
+<p>What was the ROI of campaign 2?</p>
+<p>The equation for ROI is in the lab notebook. Express solution in percent form (e.g., 5 means 5%).</p></p>
+<ul class='choices'>
+</ul>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>7. <p><strong>Exploratory Data Analysis.</strong></p>
+<p>Many features (columns) in "df_campaign_1_train" and "df_campaign_1_test" contained "-99999" values. These are special values from the credit bureau where the feature is not applicable or missing for the <select name='q7_1' class='blank-select'><option value='prospect'>prospect</option><option value='account'>account</option><option value='property'>property</option></select>. For tree-based methods, the special value <select name='q7_2' class='blank-select'><option value='has a small effect'>has a small effect</option><option value='has a large effect'>has a large effect</option></select> on model performance. Replacing "-99999" with "-1" generally improves <select name='q7_3' class='blank-select'><option value='data visualization'>data visualization</option><option value='model performance'>model performance</option><option value='feature selection'>feature selection</option></select> and <select name='q7_4' class='blank-select'><option value='model interpretation'>model interpretation</option><option value='cross-validation error'>cross-validation error</option><option value='collinearity'>collinearity</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>8. <p><strong>Exploratory Data Analysis.</strong></p>
+<p>There are two popular correlation methods: Pearson and Spearman. The Pearson correlation (aka 'correlation') measures the strength of the <select name='q8_1' class='blank-select'><option value='linear'>linear</option><option value='monotonic'>monotonic</option><option value='non-monotonic'>non-monotonic</option></select> relationship between two continuous variables. The Spearman correlation measures the strength of the <select name='q8_2' class='blank-select'><option value='monotonic'>monotonic</option><option value='linear'>linear</option><option value='non-monotonic'>non-monotonic</option></select> relationship between two variables, which are typically continuous but can also be ordinal. Both Pearson and Spearman range from <select name='q8_3' class='blank-select'><option value='-1'>-1</option><option value='0'>0</option><option value='1'>1</option></select> to <select name='q8_4' class='blank-select'><option value='1'>1</option><option value='-1'>-1</option><option value='0'>0</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>9. <p><strong>Exploratory Data Analysis.</strong></p>
+<p>Having many features in a training set generally <select name='q9_1' class='blank-select'><option value='reduces'>reduces</option><option value='increases'>increases</option><option value='has no effect on'>has no effect on</option></select> bias and <select name='q9_2' class='blank-select'><option value='increases'>increases</option><option value='reduces'>reduces</option><option value='has no effect on'>has no effect on</option></select> variance. The effect of variance may dominate which causes <select name='q9_3' class='blank-select'><option value='overfitting'>overfitting</option><option value='underfitting'>underfitting</option><option value='collinearity'>collinearity</option></select> and <select name='q9_4' class='blank-select'><option value='degrades'>degrades</option><option value='improves'>improves</option><option value='has no effect on'>has no effect on</option></select> model performance. A high number of selected features could also reduce <select name='q9_5' class='blank-select'><option value='model interpretation'>model interpretation</option><option value='collinearity'>collinearity</option></select>.</p></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>

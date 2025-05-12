@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Quiz 04-03: Fuzzy Augmentation</title>
+<link rel='stylesheet' href='style.css'>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+<script>
+  $(function() {
+    $('.sortable').sortable();
+    $('.sortable').disableSelection();
+    $('.draggable').draggable({
+      connectToSortable: '.sortable, .dropzone',
+      helper: 'clone',
+      revert: 'invalid'
+    });
+    $('.dropzone').droppable({
+      accept: '.draggable',
+      hoverClass: 'drop-hover',
+      drop: function(event, ui) {
+        var $this = $(this);
+        ui.draggable.position({ of: $this, my: 'left top', at: 'left top' });
+        ui.draggable.appendTo($this);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Quiz 04-03: Fuzzy Augmentation</h1>
+<form id='quiz-form'>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>1. <p>The primary purpose of all reject inference techniques, such as naive augmentation, bureau augmentation, and fuzzy augmentation, is to incorporate <select name='q1_1' class='blank-select'><option value='rejected'>rejected</option><option value='accepted'>accepted</option><option value='good'>good</option></select> applicants into the model training data, as their target outcome (e.g., default status) is initially <select name='q1_2' class='blank-select'><option value='missing'>missing</option><option value='known'>known</option><option value='observed'>observed</option></select>.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>2. <p>Fuzzy augmentation, also known as cloning, addresses the <select name='q2_1' class='blank-select'><option value='missing'>missing</option><option value='observed'>observed</option><option value='known'>known</option></select> target outcomes for rejected applicants by creating two copies of each reject. One copy is assigned a 'bad' outcome and the other a 'good' outcome. Crucially, each copy is assigned a <select name='q2_2' class='blank-select'><option value='sample weight'>sample weight</option><option value='class weight'>class weight</option><option value='feature importance'>feature importance</option></select> derived from a separate <select name='q2_3' class='blank-select'><option value='reject inference'>reject inference</option><option value='through-the-door'>through-the-door</option><option value='credit bureau'>credit bureau</option></select> model, representing the model’s confidence in that specific outcome for the applicant. Accepted applicants, whose outcomes are known, receive a <select name='q2_4' class='blank-select'><option value='sample weight'>sample weight</option><option value='class weight'>class weight</option><option value='feature importance'>feature importance</option></select> of 1.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>3. <p>The lab uses <select name='q3_1' class='blank-select'><option value='logistic regression'>logistic regression</option><option value='gradient boosted trees'>gradient boosted trees</option><option value='neural networks'>neural networks</option></select> to develop the reject inference model that is needed for fuzzy augmentation. This specific estimator is chosen over alternatives like tree-based models because of its ability to <select name='q3_2' class='blank-select'><option value='extrapolate'>extrapolate</option><option value='interpolate'>interpolate</option><option value='standardize'>standardize</option></select> predictions from feature values that fall outside the range observed in the accepted population.</p></p>
+</div>
+<div class='question'>
+<p class='qtype'>Type: fill_in_multiple_blanks_question</p>
+<p class='prompt'>4. <p>The quality of a reject inference model can be objectively measured by getting known target outcomes for rejected applicants. Then comparing the target outcomes to the reject inference predictions.</p>
+<p>There are two ways to get known target outcomes for rejected applicants:</p>
+<ul>
+<li>Randomly approve loans that the lender would otherwise reject. However, this could be extremely costly to the lender.</li>
+<li>Buy the target outcomes from <select name='q4_1' class='blank-select'><option value='TransUnion'>TransUnion</option><option value='Bank of America'>Bank of America</option><option value='JP Morgan Chase'>JP Morgan Chase</option></select>, but the match rate for rejected applicants could be <select name='q4_2' class='blank-select'><option value='low'>low</option><option value='high'>high</option></select>.</li>
+</ul></p>
+</div>
+<button type='submit'>Submit Answers</button>
+</form>
+</body>
+</html>
